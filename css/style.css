@@ -1,0 +1,195 @@
+:root {
+  --bg: #f6f8fc;
+  --text: #1f2937;
+  --muted: #4b5563;
+
+  --card: #ffffff;
+  --border: rgba(15, 23, 42, 0.12);
+
+  --link: #0b5bd3;
+  --link-hover: #0747a6;
+
+  --shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* Тема меняет всё, кроме шапки (header) */
+body.dark {
+  --bg: #0f172a;
+  --text: #e5e7eb;
+  --muted: #cbd5e1;
+
+  --card: #111c33;
+  --border: rgba(255,255,255,0.14);
+
+  --link: #7ab8ff;
+  --link-hover: #a8d2ff;
+
+  --shadow: 0 12px 32px rgba(0,0,0,0.35);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* --- Header / баннер (всегда как в тёмной теме) --- */
+.site-header {
+  background: #17385a; 
+  color: #e8f3ff;
+  border-bottom: 1px solid rgba(255,255,255,0.14);
+}
+
+.header-inner {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 18px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  position: relative;
+}
+
+.brand {
+  flex: 1 1 auto;
+  min-width: 220px;
+}
+
+.brand-title {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+}
+
+.brand-subtitle {
+  margin-top: 6px;
+  font-size: 16px;
+  color: rgba(255,255,255,0.75);
+}
+
+/* ссылки на соцсети (текстовые, кликабельные) */
+.social {
+  display: flex;
+  flex-direction: column;   /* друг под другом */
+  gap: 8px;                 /* расстояние между строками */
+  align-items: flex-end;    /* прижать вправо (как было) */
+  padding-right: 56px;      /* место под кнопку темы справа */
+}
+
+.social-link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+
+  color: #e8f3ff;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.social-link:hover {
+  color: #e8f3ff;  /* не уходим в тёмный hover */
+  opacity: 0.7;
+}
+
+/* фокус для клавиатуры (полезно для доступности) */
+.social-link:focus-visible {
+  outline: 2px solid rgba(122, 184, 255, 0.75);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* --- Кнопка темы (в правом верхнем углу баннера) --- */
+.theme-toggle {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+
+  border: 1px solid rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.12);
+  color: #e8f3ff;
+
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.18);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid rgba(122, 184, 255, 0.75);
+  outline-offset: 3px;
+}
+
+/* --- Контент --- */
+.container {
+  max-width: 980px;
+  margin: 18px auto;
+  padding: 0 16px 32px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+
+.section-title {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.link-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.link-list li {
+  padding: 10px 0;
+  border-top: 1px dashed var(--border);
+}
+
+.link-list li:first-child {
+  border-top: none;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+/* --- Адаптивность --- */
+@media (max-width: 720px) {
+  .header-inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .social {
+    justify-content: flex-start;
+    padding-right: 0;
+  }
+
+  .theme-toggle {
+    top: 12px;
+    right: 12px;
+  }
+}

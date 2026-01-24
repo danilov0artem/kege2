@@ -1,0 +1,4 @@
+.DS_Store
+.mergeignore
+merge_files_script.py
+all_in_one.txt
