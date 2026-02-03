@@ -43,7 +43,7 @@ body {
 
 /* --- Header / баннер (всегда как в тёмной теме) --- */
 .site-header {
-  background: #191A1A; 
+  background: #00072D;
   color: #F2F2F2;
   border-bottom: 1px solid rgba(255,255,255,0.14);
 }
