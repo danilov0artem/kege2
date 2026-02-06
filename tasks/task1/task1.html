@@ -20,33 +20,37 @@
   <script>
     window.TASK_PAGE_CONFIG = {
       pageTitle: "Задание 1",
+      localTasksUrl: "task1-other.json",
       themes: [
         {
           title: "1. Явно симметричные графы",
           tasks: [
-            { id: 23738, title: "Демоверсия 2026" },
-            { id: 23547, title: "Пересдача 2025" },
-            { id: 23360, title: "Резервный день 2025 " },
-            { id: 17620, title: "Основная волна 2024" },
-            { id: 16312, title: "Открытый вариант 2024" }
+            { source: "kompege", id: 23738, title: "Демоверсия 2026" },
+            { source: "kompege", id: 23547, title: "Пересдача 2025" },
+            { source: "kompege", id: 23360, title: "Резервный день 2025 " },
+            { source: "kompege", id: 17620, title: "Основная волна 2024" },
+            { source: "kompege", id: 16312, title: "Открытый вариант 2024" },
+            { source: "local", id: "2026-v15", title: "Сборник Крылова 2026 г. вариант 15" }
           ]
         },
         {
           title: "2. Не симметричные графы",
           tasks: [
-            { id: 23260, title: "Основная волна 2025" },
-            { id: 21696, title: "ЕГКР 19.04.2025" },
-            { id: 20801, title: "Апробация 2025" },
-            { id: 19233, title: "ЕГКР 2024" },
-            { id: 17542, title: "Основная волна 2024" },
-            { id: 26124, title: "" }
+            { source: "kompege", id: 23260, title: "Основная волна 2025" },
+            { source: "kompege", id: 21696, title: "ЕГКР 19.04.2025" },
+            { source: "kompege", id: 20801, title: "Апробация 2025" },
+            { source: "kompege", id: 19233, title: "ЕГКР 2024" },
+            { source: "kompege", id: 17542, title: "Основная волна 2024" },
+            { source: "kompege", id: 26124, title: "" }
           ]
         },
         {
           title: "3. Более сложные графы",
           tasks: [
-            { id: 23185, title: "Основная волна 2025" },
-            { id: 21400, title: "Досрочная волна 2025" }
+            { source: "kompege", id: 23185, title: "Основная волна 2025" },
+            { source: "kompege", id: 21400, title: "Досрочная волна 2025" },
+            { source: "local", id: "2026-v13", title: "Сборник Крылова 2026 г. вариант 13" },
+            { source: "local", id: "2026-v5", title: "Сборник Крылова 2026 г. вариант 5" }
           ]
         }
       ]

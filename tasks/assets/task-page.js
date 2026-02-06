@@ -9,9 +9,16 @@
       .slice(0, 60);
   }
 
-  async function loadTask(id) {
+  async function loadKompegeTask(id) {
     const res = await fetch(`https://kompege.ru/api/v1/task/${id}`);
     if (!res.ok) throw new Error(`Ошибка загрузки задачи ${id}`);
+    return await res.json();
+  }
+
+  async function loadLocalDict(url) {
+    if (!url) return {};
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Ошибка загрузки задачи ${url}`);
     return await res.json();
   }
 
@@ -30,6 +37,15 @@
       document.title = config.pageTitle;
     }
 
+    // 0) Один раз грузим JSON со своими задачами
+    let localDict = {};
+    try {
+      localDict = await loadLocalDict(config.localTasksUrl);
+    } catch (e) {
+      console.error(e);
+      localDict = {};
+    }
+
     // 1) Якоря для тем
     const usedAnchors = new Set();
     const themeAnchors = THEMES.map((theme, i) => {
@@ -42,18 +58,13 @@
       return anchor;
     });
 
-    // // 2) Содержание
-    // toc.innerHTML = THEMES.map((theme, i) => {
-    //   const themeTitle = theme?.title ?? `Тема ${i + 1}`;
-    //   return `<li><a href="#${themeAnchors[i]}">${themeTitle}</a></li>`;
-    // }).join("");
-
+    // 2) Содержание
     toc.innerHTML = THEMES.map((theme, i) => {
       const themeTitle = theme?.title ?? `Тема ${i + 1}`;
       return `<li><a class="social-link toc-link" href="#${themeAnchors[i]}">${themeTitle}</a></li>`;
     }).join("");
 
-    // 3) Плейсхолдеры (без “Загрузка…”)
+    // 3) Плейсхолдеры
     themesRoot.innerHTML = "";
     let globalIndex = 0;
 
@@ -74,36 +85,54 @@
       (theme.tasks || []).forEach((t) => {
         globalIndex++;
 
-        const taskEl = document.createElement("article");
-        taskEl.className = "task";
-        taskEl.id = `task-${t.id}`;
-        taskEl.innerHTML = `
-          <h3>${globalIndex}. ${t.title || ""} <span class="muted">(задача ${t.id} с kompege.ru)</span></h3>
-        `;
+const source = t.source || "kompege";
+
+const taskEl = document.createElement("article");
+taskEl.className = "task";
+taskEl.id = `task-${String(t.id)}`;
+
+taskEl.innerHTML = `
+  <h3>${globalIndex}. ${t.title || ""}${
+    source === "kompege"
+      ? ` <span class="muted">(задача ${t.id} с kompege.ru)</span>`
+      : ""
+  }</h3>
+`;
+
         themeBlock.appendChild(taskEl);
       });
 
       themesRoot.appendChild(themeBlock);
     });
 
-    // 4) Грузим задачи параллельно и подставляем контент
+    // 4) Подставляем контент
     const allTasks = THEMES.flatMap(t => t.tasks || []);
     const promises = allTasks.map(async (t) => {
-      const host = document.getElementById(`task-${t.id}`);
+      const host = document.getElementById(`task-${String(t.id)}`);
       if (!host) return;
 
+      const headerText = host.querySelector("h3")?.textContent ?? "";
+      const source = t.source || "kompege";
+
       try {
-        const data = await loadTask(t.id);
-        const headerText = host.querySelector("h3")?.textContent ?? "";
+        let data;
+
+        if (source === "local") {
+          const item = localDict[String(t.id)];
+          if (!item) throw new Error(`Локальная задача не найдена: ${t.id}`);
+          data = { text: item.text ?? "", key: item.key ?? "" };
+        } else {
+          data = await loadKompegeTask(t.id);
+        }
 
         host.innerHTML = `
           <h3>${headerText}</h3>
           <div class="task-text">${data.text ?? ""}</div>
 
-          <button class="btn" type="button" data-action="toggle-answer" data-id="${t.id}">
+          <button class="btn" type="button" data-action="toggle-answer" data-id="${String(t.id)}">
             Показать ответ
           </button>
-          <div class="answer hidden" id="answer-${t.id}">
+          <div class="answer hidden" id="answer-${String(t.id)}">
             <p>${data.key ?? ""}</p>
           </div>
         `;
@@ -113,16 +142,15 @@
         }
       } catch (e) {
         host.innerHTML = `
-          <h3>${host.querySelector("h3")?.textContent ?? "Задача"}</h3>
+          <h3>${headerText || "Задача"}</h3>
           <p style="color:red;">${e.message}</p>
         `;
       }
     });
 
-    // Ждём завершения всех запросов, даже если часть упадёт
-    await Promise.allSettled(promises);  // [web:123] — см. примечание ниже
+    await Promise.allSettled(promises);
 
-    // 5) Один обработчик на все кнопки “Показать ответ”
+    // 5) Кнопки “Показать ответ”
     themesRoot.addEventListener("click", (e) => {
       const btn = e.target.closest('button[data-action="toggle-answer"]');
       if (!btn) return;
