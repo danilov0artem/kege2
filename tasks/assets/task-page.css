@@ -92,3 +92,18 @@ html { scroll-behavior: smooth; }
   outline-offset: 3px;
   border-radius: 6px;
 }
+
+/* Обёртка текста задачи становится контейнером прокрутки */
+.task-text{
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Таблица пусть остаётся таблицей и имеет “естественную” ширину */
+.task-text table{
+  width: max-content;      /* или min-width: max-content; */
+  max-width: none;
+  border-collapse: collapse;
+}
+
