@@ -107,3 +107,33 @@ html { scroll-behavior: smooth; }
   border-collapse: collapse;
 }
 
+.task-files{
+  margin-top: 10px;
+  margin-bottom: 34px; /* “пустая строка” перед кнопкой */
+  padding: 10px 12px;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+}
+
+.task-files-title{
+  font-weight: 700; /* уже жирный */
+  margin-bottom: 6px;
+}
+
+
+.task-files-list{
+  margin: 0;
+  padding-left: 18px;
+}
+
+.file-link{
+  text-decoration: underline;
+}
+
+.task-files-inline{
+  margin: 10px 0 18px; /* снизу отступ перед кнопкой */
+}
+
+.task-files-inline strong{
+  font-weight: 700;
+}

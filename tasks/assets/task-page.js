@@ -22,6 +22,30 @@
     return await res.json();
   }
 
+  function renderFiles(files) {
+    if (!Array.isArray(files) || files.length === 0) return "";
+
+    const links = files.map(f => {
+      const title = f.title || f.name || "файл";
+      const href = f.url;
+      const downloadAttr = f.name ? ` download="${String(f.name)}"` : " download";
+      return `<a class="file-link" href="${href}"${downloadAttr}>${title}</a>`;
+    }).join(", ");
+
+    return `<div class="task-files-inline">Файлы к заданию: ${links}</div>`;
+  }
+
+  function extractFilesFromKompege(data) {
+  const arr = Array.isArray(data?.files) ? data.files : [];
+  return arr
+    .filter(f => f && f.url)
+    .map(f => ({
+      url: new URL(f.url, "https://kompege.ru").href,
+      name: f.name || "",
+      title: f.name || "Файл"
+    }));
+}
+
   document.addEventListener("DOMContentLoaded", async () => {
     const config = window.TASK_PAGE_CONFIG || {};
     const THEMES = Array.isArray(config.themes) ? config.themes : [];
@@ -120,14 +144,17 @@ taskEl.innerHTML = `
         if (source === "local") {
           const item = localDict[String(t.id)];
           if (!item) throw new Error(`Локальная задача не найдена: ${t.id}`);
-          data = { text: item.text ?? "", key: item.key ?? "" };
+          data = { text: item.text ?? "", key: item.key ?? "", files: item.files ?? [] };
         } else {
           data = await loadKompegeTask(t.id);
+          data.files = extractFilesFromKompege(data);
         }
+
 
         host.innerHTML = `
           <h3>${headerText}</h3>
           <div class="task-text">${data.text ?? ""}</div>
+          ${renderFiles(data.files)}
 
           <button class="btn" type="button" data-action="toggle-answer" data-id="${String(t.id)}">
             Показать ответ
