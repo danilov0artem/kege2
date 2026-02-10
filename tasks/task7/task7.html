@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Задание 7</title>
+
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../assets/task-page.css" />
+  <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+
+  <!-- Опционально: MathJax для формул -->
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Конфиг конкретной страницы (меняешь только его на других заданиях) -->
+  <script>
+    window.TASK_PAGE_CONFIG = {
+      pageTitle: "Задание 7",
+      localTasksUrl: "task7-other.json",
+      themes: [
+        {
+          title: "1. Размер пакета фотографий",
+          tasks: [
+            { source: "kompege", id: 25346, title: "ЕГКР 13.12.2025" },
+            { source: "kompege", id: 16318, title: "Открытый вариант 2024" },
+            { source: "kompege", id: 15319, title: "Досрочная волна 2024" }
+          ]
+        },
+        {
+          title: "2. Экономия при передачи фотографий",
+          tasks: [
+            { source: "kompege", id: 23744, title: "Демоверсия 2026" },
+            { source: "kompege", id: 23553, title: "Пересдача 2025" },
+            { source: "kompege", id: 23191, title: "Основная волна 2025" }
+          ]
+        },
+        {
+          title: "3. Количество снимков в пакете",
+          tasks: [
+            { source: "kompege", id: 20804, title: "Апробация 2025" },
+            { source: "kompege", id: 17861, title: "Демоверсия 2025" },
+            { source: "kompege", id: 17548, title: "Основная волна 2024" }
+          ]
+        },
+        {
+          title: "4. Количество цветов в палитре изображения",
+          tasks: [
+            { source: "kompege", id: 17670, title: "Пересдача 2024" },
+            { source: "kompege", id: 17626, title: "Основная волна 2024" }
+          ]
+        },
+        {
+          title: "5. Дополнительные задачи на изображения",
+          tasks: [
+            { source: "kompege", id: 21702, title: "ЕГКР 2025" },
+            { source: "kompege", id: 19239, title: "ЕГКР 2024" },
+            { source: "kompege", id: 18613, title: "Статград 2024" },
+            { source: "kompege", id: 16373, title: "ЕГКР 2024" },
+            { source: "kompege", id: 4587, title: "Основная волна 2022" },
+            { source: "kompege", id: 6891, title: "" }
+          ]
+        },
+        {
+          title: "6. Время передачи музыкального фрагмента",
+          tasks: [
+            { source: "kompege", id: 7586, title: "Досрочная волна 2023" },
+            { source: "kompege", id: 8495, title: "Апробация 2023" }
+          ]
+        },
+        {
+          title: "7. Время скачивания музыкального альбома",
+          tasks: [
+            { source: "kompege", id: 17979, title: "Основная волна 2024" },
+            { source: "kompege", id: 17980, title: "" }
+          ]
+        },
+        {
+          title: "8. Длительность музыкального фрагмента",
+          tasks: [
+            { source: "kompege", id: 9830, title: "Основная волна 2023" },
+            { source: "kompege", id: 9776, title: "Основная волна 2023" }
+          ]
+        },
+        {
+          title: "9. Повторная запись музыкального фрагмента",
+          tasks: [
+            { source: "kompege", id: 23745, title: "Демоверсия 2026" },
+            { source: "kompege", id: 6039, title: "" },
+            { source: "kompege", id: 6014, title: "" },
+            { source: "kompege", id: 4695, title: "Демоверсия 2023" }
+          ]
+        },
+        {
+          title: "10. Дополнительные задачи на звук",
+          tasks: [
+            { source: "kompege", id: 24887, title: "Статград 2025" }
+          ]
+        }
+      ]
+    };
+  </script>
+
+  <!-- Общие скрипты -->
+  <script src="../../js/theme.js" defer></script>
+  <script src="../assets/task-page.js" defer></script>
+</head>
+
+<body>
+  <!-- Шапка как в index.html -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <a class="brand-title brand-link" href="../../index.html">КЕГЭ 2</a>
+        <div class="brand-subtitle">Сайт Учителя Артема</div>
+      </div>
+
+      <nav class="social" aria-label="Ссылки на соцсети">
+        <a class="social-link" href="https://t.me/teacher_artem_ege_inf" target="_blank" rel="noopener">
+          Все важные новости о ЕГЭ по информатике 2026 в Telegram
+        </a>
+      </nav>
+
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Переключить тему">🌓</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h1 class="section-title" id="pageTitle">Задание 7</h1>
+      
+      <h2 class="section-title" style="margin-top: 16px;">Содержание</h2>
+      <ul class="link-list toc" id="toc"></ul>
+
+      <div id="themesRoot"></div>
+    </section>
+  </main>
+</body>
+</html>
