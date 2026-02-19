@@ -22,26 +22,44 @@
       pageTitle: "Задание 4",
       localTasksUrl: "task4-other.json",
       themes: [
-        {
+        {          
           title: "1. Одно кодовое слово простые",
           tasks: [
+            { type: "theory", title: "Теория по первому прототипу", text: `
+                <p>Нужно уметь сравнивать по числовому значению и выбирать кодовое слово с 
+                  наименьшим/наибольшим числовым значением. При этом надо понимать, что, конечно, 
+                  в первую очередь берем самую короткую комбинацию.</p>
+            `},
             { source: "kompege", id: 17858, title: "Демоверсия 2025" },
-            { source: "kompege", id: 20895, title: "Апробация 2025" },
-            { source: "kompege", id: 21403, title: "Досрочная волна 2025" },
+            { source: "kompege", id: 19260, title: "ЕГКР 2024" },
             { source: "kompege", id: 23363, title: "Резервный день 2025" },
-            { source: "kompege", id: 17517, title: "Основная волна 2024" }
+            { source: "kompege", id: 20895, title: "Апробация 2025" },
+            { source: "kompege", id: 15316, title: "Досрочная волна 2024" },
+            { source: "kompege", id: 21403, title: "Досрочная волна 2025" },
+            { source: "kompege", id: 16315, title: "Открытый вариант 2024" },
+            { source: "kompege", id: 21590, title: "Статград 2025" }
           ]
         },
         {
           title: "2. Одно кодовое слово более сложные",
           tasks: [
-            { source: "kompege", id: 16315, title: "Открытый вариант 2024" },
-            { source: "local", id: "task4-2", title: "" }
+            { type: "theory", title: "Теория по второму прототипу", text: `
+                <p>Нужно кодировать все данные буквы или как минимум оставлять
+                  возможность для их кодирования.</p>
+            `},
+            { source: "local", id: "task4-2", title: "" },
+            { source: "kompege", id: 3, title: "Демоверсия 2021" },
+            { source: "local", id: "task4-3", title: "" },
+            { source: "kompege", id: 19409, title: "" }
           ]
         },
         {
           title: "3. Несколько кодовых слов",
           tasks: [
+            { type: "theory", title: "Теория по третьему прототипу", text: `
+                <p>Нужно кодировать буквы так, чтобы они были все примерно
+                   одинаковой длины и как можно короче.</p>
+            `},
             { source: "kompege", id: 23188, title: "Основная волна 2025" },
             { source: "kompege", id: 23263, title: "Основная волна 2025" },
             { source: "kompege", id: 23741, title: "Демоверсия 2025" },
@@ -52,11 +70,18 @@
         {
           title: "4. Кодирование слова",
           tasks: [
+            { type: "theory", title: "Теория по четвертому прототипу", text: `
+                <p>Самую часто встречающуюся букву стараемся закодировать как можно короче, 
+                  но обязательно рассматриваем и другие варианты. При этом не забываем 
+                  закодировать все используемые буквы.</p>
+            `},
             { source: "kompege", id: 23550, title: "Пересдача 2025" },
             { source: "kompege", id: 21699, title: "ЕГКР 2025" },
             { source: "kompege", id: 19236, title: "ЕГКР 2024" },
             { source: "kompege", id: 17667, title: "Пересдача 2024" },
-            { source: "kompege", id: 17623, title: "Основная волна 2024" }
+            { source: "kompege", id: 17623, title: "Основная волна 2024" },
+            { source: "kompege", id: 19408, title: "" },
+            { source: "kompege", id: 16370, title: "ЕГКР 2024" }
           ]
         }
       ]

@@ -137,3 +137,7 @@ html { scroll-behavior: smooth; }
 .task-files-inline strong{
   font-weight: 700;
 }
+
+.theory-block {
+  border-style: dashed;
+}

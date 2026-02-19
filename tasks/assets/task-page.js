@@ -89,48 +89,64 @@
     }).join("");
 
     // 3) Плейсхолдеры
-    themesRoot.innerHTML = "";
-    let globalIndex = 0;
+themesRoot.innerHTML = "";
+let globalIndex = 0;
 
-    THEMES.forEach((theme, i) => {
-      const themeBlock = document.createElement("div");
-      themeBlock.className = "theme-block";
+THEMES.forEach((theme, i) => {
+  const themeBlock = document.createElement("div");
+  themeBlock.className = "theme-block";
 
-      const anchor = document.createElement("div");
-      anchor.id = themeAnchors[i];
-      anchor.className = "anchor-offset";
-      themeBlock.appendChild(anchor);
+  const anchor = document.createElement("div");
+  anchor.id = themeAnchors[i];
+  anchor.className = "anchor-offset";
+  themeBlock.appendChild(anchor);
 
-      const title = document.createElement("h2");
-      title.className = "theme-title";
-      title.textContent = theme?.title ?? `Тема ${i + 1}`;
-      themeBlock.appendChild(title);
+  const title = document.createElement("h2");
+  title.className = "theme-title";
+  title.textContent = theme?.title ?? `Тема ${i + 1}`;
+  themeBlock.appendChild(title);
 
-      (theme.tasks || []).forEach((t) => {
-        globalIndex++;
+  (theme.tasks || []).forEach((t) => {
 
-const source = t.source || "kompege";
+    // 1) Теория
+    if (t && t.type === "theory") {
+      const block = document.createElement("div");
+      block.className = "task theory-block";
+      block.innerHTML = `
+        ${t.title ? `<h3>${t.title}</h3>` : ""}
+        <div class="task-text">${t.text || ""}</div>
+      `;
+      themeBlock.appendChild(block);
+      return;
+    }
 
-const taskEl = document.createElement("article");
-taskEl.className = "task";
-taskEl.id = `task-${String(t.id)}`;
+    // 2) Обычная задача
+    globalIndex++;
 
-taskEl.innerHTML = `
-  <h3>${globalIndex}. ${t.title || ""}${
-    source === "kompege"
-      ? ` <span class="muted">(задача ${t.id} с kompege.ru)</span>`
-      : ""
-  }</h3>
-`;
+    const source = t.source || "kompege";
 
-        themeBlock.appendChild(taskEl);
-      });
+    const taskEl = document.createElement("article");
+    taskEl.className = "task";
+    taskEl.id = `task-${String(t.id)}`;
 
-      themesRoot.appendChild(themeBlock);
-    });
+    taskEl.innerHTML = `
+      <h3>${globalIndex}. ${t.title || ""}${
+        source === "kompege"
+          ? ` <span class="muted">(задача ${t.id} с kompege.ru)</span>`
+          : ""
+      }</h3>
+    `;
+
+    themeBlock.appendChild(taskEl);
+  });
+
+  themesRoot.appendChild(themeBlock);
+});
+
+
 
     // 4) Подставляем контент
-    const allTasks = THEMES.flatMap(t => t.tasks || []);
+    const allTasks = THEMES.flatMap(t => t.tasks || []).filter(t => !(t && t.type === "theory"));
     const promises = allTasks.map(async (t) => {
       const host = document.getElementById(`task-${String(t.id)}`);
       if (!host) return;
