@@ -5,5 +5,12 @@
     "files": [
       { "title": "3.ods", "url": "task3-files/3var17-20.ods", "name": "3.ods" }
     ]
+  },
+    "2026-v7": {
+    "text": "<img src='task3-img/2026-v7.png'>",
+    "key": "130",
+    "files": [
+      { "title": "3.ods", "url": "task3-files/3var5-8.ods", "name": "3.ods" }
+    ]
   }
 }
