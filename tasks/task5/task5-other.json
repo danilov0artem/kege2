@@ -1,3 +1,18 @@
 {
-    "2026-v9": { "text": "<img src='task5-img/2026-v9.png'>", "key": "61" }
+    "2026-v9": { "text": "<img src='task5-img/2026-v9.png'>", "key": "61" },
+
+    "2026-v3": { "text": "<img src='task5-img/2026-v3.png'>", "key": "1666" },
+    "2026-v17": { "text": "<img src='task5-img/2026-v17.png'>", "key": "946" },
+    "2026-v19": { "text": "<img src='task5-img/2026-v19.png'>", "key": "876" },
+
+    "12": { "text": "<img src='task5-img/12.png'>", "key": "12" },
+    "56": { "text": "<img src='task5-img/56.png'>", "key": "56" },
+    "345": { "text": "<img src='task5-img/345.png'>", "key": "345" },
+
+    "системы_16": { "text": "<img src='task5-img/системы_16.png'>", "key": "16" },
+    "системы_41": { "text": "<img src='task5-img/системы_41.png'>", "key": "41" },
+    "системы_106": { "text": "<img src='task5-img/системы_106.png'>", "key": "106" },
+    "системы_1093": { "text": "<img src='task5-img/системы_1093.png'>", "key": "1093" },
+    "системы_1806": { "text": "<img src='task5-img/системы_1806.png'>", "key": "1806" },
+    "системы_2160": { "text": "<img src='task5-img/системы_2160.png'>", "key": "2160" }
 }
