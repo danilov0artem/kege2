@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Задание 9</title>
+
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../assets/task-page.css" />
+  <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+
+  <!-- Опционально: MathJax для формул -->
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Конфиг конкретной страницы (меняешь только его на других заданиях) -->
+  <script>
+    window.TASK_PAGE_CONFIG = {
+      pageTitle: "Задание 9",
+      localTasksUrl: "task8-other.json",
+      themes: [
+        {
+          title: "Теория",
+          tasks: [
+            { type: "theory", title: "Теория", text: `
+                <p>С 8 заданием такая же ситуация, как и с номером 7. Здесь есть огромное количество самых разных
+                  формулировок, собрать которые в одном месте было бы сложно. Поэтому я ограничился только "официальными"
+                  заданиями (их и так получилось не мало). Если после их прорешивания вы хотите попробовать себя в 
+                  более сложных задачах, то можете дополнительно порешать задачи на kompege.ru.
+                </p>
+            `},
+          ]
+        },
+        {
+          title: "1. Классические задачи",
+          tasks: [
+            { source: "kompege", id: 27621, title: "Апробация 04.03.26" },
+            { source: "kompege", id: 27287, title: "" },
+            { source: "kompege", id: 27285, title: "" },
+            { source: "kompege", id: 25348, title: "ЕГКР 13.12.25" },
+            { source: "kompege", id: 23747, title: "Демоверсия 2026" },
+            { source: "kompege", id: 23555, title: "Пересдача 03.07.25" },
+            { source: "kompege", id: 23368, title: "Резервный день 19.06.25" },
+            { source: "kompege", id: 21704, title: "ЕГКР 19.04.25" },
+            { source: "kompege", id: 21592, title: "" },
+            { source: "kompege", id: 20899, title: "Апробация 05.03.25" },
+            { source: "kompege", id: 16375, title: "ЕГКР 27.04.24" },
+            { source: "kompege", id: 16320, title: "Открытый вариант 2024" },
+            { source: "kompege", id: 1962, title: "Демоверсия 2022" }
+          ]
+        },
+        {
+          title: "2. Задачи повышенного уровня сложности",
+          tasks: [
+            { source: "kompege", id: 27284, title: "" },
+            { source: "kompege", id: 10910, title: "" }
+          ]
+        }
+      ]
+    };
+  </script>
+
+  <!-- Общие скрипты -->
+  <script src="../../js/theme.js" defer></script>
+  <script src="../assets/task-page.js" defer></script>
+</head>
+
+<body>
+  <!-- Шапка как в index.html -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <a class="brand-title brand-link" href="../../index.html">КЕГЭ 2</a>
+        <div class="brand-subtitle">Сайт Учителя Артема</div>
+      </div>
+
+      <nav class="social" aria-label="Ссылки на соцсети">
+        <a class="social-link" href="https://t.me/teacher_artem_ege_inf" target="_blank" rel="noopener">
+          Все важные новости о ЕГЭ по информатике 2026 в Telegram
+        </a>
+      </nav>
+
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Переключить тему">🌓</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h1 class="section-title" id="pageTitle">Задание 9</h1>
+      
+      <h2 class="section-title" style="margin-top: 16px;">Содержание</h2>
+      <ul class="link-list toc" id="toc"></ul>
+
+      <div id="themesRoot"></div>
+    </section>
+  </main>
+</body>
+</html>
