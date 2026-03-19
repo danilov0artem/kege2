@@ -22,8 +22,27 @@
       pageTitle: "Задание 18",
       localTasksUrl: "task18-other.json",
       themes: [
+        {          
+          title: "Теория",
+          tasks: [
+            { type: "theory", title: "Теория", text: `
+                <p>
+                  На данный момент здесь представлены только задачи уровня ЕГЭ. Никаких других более сложных
+                  задач на ЕГЭ никогда не было. В будущем добавлю подборку адекватных более сложных задач.
+
+                  <br><br>Для уровня 1 надо прорешать все эти задачи. Уровня 2 и 3 пока нет.
+
+                  <br><br>Что такое "уровни" можно почитать <a href="../about_site.html">здесь</a>.
+ 
+                  <br><br>А если вам нужна полная теория по этому заданию или вы хотите задать вопрос по конкретной задаче,
+                  то сделать это можно 
+                  <a href="https://vk.com/kege2_course" target="_blank">
+                    тут</a>.</p>
+            `}
+          ]
+        },
         {
-          title: "1. Задачи уровня ЕГЭ 2026",
+          title: "1. Задачи уровня ЕГЭ",
           tasks: [
             { source: "kompege", id: 25357, title: "ЕГКР 19.04.25" },
             { source: "kompege", id: 23758, title: "Демоверсия 2026" },
@@ -31,15 +50,7 @@
             { source: "kompege", id: 23377, title: "Резервный день 2025" },
             { source: "kompege", id: 23277, title: "Основная волна 2025" }
           ]
-        },
-        {
-          title: "2. Задачи сложнее уровня ЕГЭ",
-          tasks: [
-            { type: "theory", title: "Теория", text: `
-                <p>На данный момент у меня нет времени отобрать подходящие задачи из-за нехватки времени.</p>
-            `},
-          ]
-        },
+        }
       ]
     };
   </script>
@@ -59,8 +70,11 @@
       </div>
 
       <nav class="social" aria-label="Ссылки на соцсети">
-        <a class="social-link" href="https://t.me/teacher_artem_ege_inf" target="_blank" rel="noopener">
-          Все важные новости о ЕГЭ по информатике 2026 в Telegram
+        <a class="social-link" href="https://vk.com/kege2_course" target="_blank" rel="noopener">
+          Подготовка к ЕГЭ по информатике с 0 до 95+ баллов за 190 рублей в месяц
+        </a>
+        <a class="social-link" href="/tasks/lessons.html" rel="noopener">
+          Записаться на индивидуальные занятия по профильной математике/информатике
         </a>
       </nav>
 
