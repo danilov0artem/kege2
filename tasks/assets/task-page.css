@@ -141,3 +141,21 @@ html { scroll-behavior: smooth; }
 .theory-block {
   border-style: dashed;
 }
+
+/* Убираем отступы для подзадач 19-21 */
+.task .task > div {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* Если используешь вложенную .task для подзадач */
+.task .task {
+  margin: 18px 0 0 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}

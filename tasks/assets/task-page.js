@@ -145,8 +145,57 @@ THEMES.forEach((theme, i) => {
 
 
 
+    // // 4) Подставляем контент
+    // const allTasks = THEMES.flatMap(t => t.tasks || []).filter(t => !(t && t.type === "theory"));
+    // const promises = allTasks.map(async (t) => {
+    //   const host = document.getElementById(`task-${String(t.id)}`);
+    //   if (!host) return;
+
+    //   const headerText = host.querySelector("h3")?.textContent ?? "";
+    //   const source = t.source || "kompege";
+
+    //   try {
+    //     let data;
+
+    //     if (source === "local") {
+    //       const item = localDict[String(t.id)];
+    //       if (!item) throw new Error(`Локальная задача не найдена: ${t.id}`);
+    //       data = { text: item.text ?? "", key: item.key ?? "", files: item.files ?? [] };
+    //     } else {
+    //       data = await loadKompegeTask(t.id);
+    //       data.files = extractFilesFromKompege(data);
+    //     }
+
+
+    //     host.innerHTML = `
+    //       <h3>${headerText}</h3>
+    //       <div class="task-text">${data.text ?? ""}</div>
+    //       ${renderFiles(data.files)}
+
+    //       <button class="btn" type="button" data-action="toggle-answer" data-id="${String(t.id)}">
+    //         Показать ответ
+    //       </button>
+    //       <div class="answer hidden" id="answer-${String(t.id)}">
+    //         <p>${data.key ?? ""}</p>
+    //       </div>
+    //     `;
+
+    //     if (window.MathJax && window.MathJax.typesetPromise) {
+    //       await window.MathJax.typesetPromise([host]);
+    //     }
+    //   } catch (e) {
+    //     host.innerHTML = `
+    //       <h3>${headerText || "Задача"}</h3>
+    //       <p style="color:red;">${e.message}</p>
+    //     `;
+    //   }
+    // });
+
     // 4) Подставляем контент
-    const allTasks = THEMES.flatMap(t => t.tasks || []).filter(t => !(t && t.type === "theory"));
+    const allTasks = THEMES
+      .flatMap(t => t.tasks || [])
+      .filter(t => !(t && t.type === "theory"));
+
     const promises = allTasks.map(async (t) => {
       const host = document.getElementById(`task-${String(t.id)}`);
       if (!host) return;
@@ -160,14 +209,19 @@ THEMES.forEach((theme, i) => {
         if (source === "local") {
           const item = localDict[String(t.id)];
           if (!item) throw new Error(`Локальная задача не найдена: ${t.id}`);
-          data = { text: item.text ?? "", key: item.key ?? "", files: item.files ?? [] };
+          data = {
+            text: item.text ?? "",
+            key: item.key ?? "",
+            files: item.files ?? [],
+            subTask: item.subTask ?? []
+          };
         } else {
           data = await loadKompegeTask(t.id);
           data.files = extractFilesFromKompege(data);
         }
 
-
-        host.innerHTML = `
+        // Блок основной задачи (19)
+        let html = `
           <h3>${headerText}</h3>
           <div class="task-text">${data.text ?? ""}</div>
           ${renderFiles(data.files)}
@@ -180,6 +234,35 @@ THEMES.forEach((theme, i) => {
           </div>
         `;
 
+        // Если есть подзадачи (20 и 21) — выводим их ниже как единый блок
+        if (Array.isArray(data.subTask) && data.subTask.length > 0) {
+          html += `<div class="task" style="margin-top: 18px;">`;
+
+          data.subTask.forEach((st, idx) => {
+            const subNumber = st.number ?? (19 + idx + 1); // если number есть — берём его
+            const subId = `${String(t.id)}-sub-${idx + 1}`;
+
+            html += `
+              <div style="margin-top:${idx === 0 ? 0 : 14}px;">
+                <h3>Задание ${subNumber}</h3>
+                <div class="task-text">${st.text ?? ""}</div>
+                ${st.key ? `
+                  <button class="btn" type="button" data-action="toggle-answer" data-id="${subId}">
+                    Показать ответ
+                  </button>
+                  <div class="answer hidden" id="answer-${subId}">
+                    <p>${st.key}</p>
+                  </div>
+                ` : ""}
+              </div>
+            `;
+          });
+
+          html += `</div>`;
+        }
+
+        host.innerHTML = html;
+
         if (window.MathJax && window.MathJax.typesetPromise) {
           await window.MathJax.typesetPromise([host]);
         }
@@ -190,6 +273,7 @@ THEMES.forEach((theme, i) => {
         `;
       }
     });
+
 
     await Promise.allSettled(promises);
 
