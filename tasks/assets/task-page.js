@@ -219,37 +219,48 @@ THEMES.forEach((theme, i) => {
           data = await loadKompegeTask(t.id);
           data.files = extractFilesFromKompege(data);
         }
-
+        const taskText = (data.text || "").replace(/<a[^>]*>|<\/a>/gi, "");
+        
         // Блок основной задачи (19)
         let html = `
           <h3>${headerText}</h3>
-          <div class="task-text">${data.text ?? ""}</div>
+          <div class="task-text">${taskText}</div> 
           ${renderFiles(data.files)}
 
-          <button class="btn" type="button" data-action="toggle-answer" data-id="${String(t.id)}">
-            Показать ответ
-          </button>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button class="btn" type="button" data-action="toggle-answer" data-id="${String(t.id)}">
+              Показать ответ
+            </button>
+             <a href="/tasks/ask_question.html" target="_blank" class="btn task-btn">Задать вопрос по задаче</a>
+          </div>
+
           <div class="answer hidden" id="answer-${String(t.id)}">
             <p>${data.key ?? ""}</p>
           </div>
         `;
 
-        // Если есть подзадачи (20 и 21) — выводим их ниже как единый блок
+        // Если есть подзадачи (20 и 21)
         if (Array.isArray(data.subTask) && data.subTask.length > 0) {
           html += `<div class="task" style="margin-top: 18px;">`;
 
           data.subTask.forEach((st, idx) => {
-            const subNumber = st.number ?? (19 + idx + 1); // если number есть — берём его
+            const subNumber = st.number ?? (19 + idx + 1);
             const subId = `${String(t.id)}-sub-${idx + 1}`;
-
+            
+            // 2. Очищаем текст подзадачи
+            const subTaskText = (st.text || "").replace(/<a[^>]*>|<\/a>/gi, "");
+            
             html += `
               <div style="margin-top:${idx === 0 ? 0 : 14}px;">
                 <h3>Задание ${subNumber}</h3>
-                <div class="task-text">${st.text ?? ""}</div>
+                <div class="task-text">${subTaskText}</div> 
                 ${st.key ? `
-                  <button class="btn" type="button" data-action="toggle-answer" data-id="${subId}">
-                    Показать ответ
-                  </button>
+                  <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="btn" type="button" data-action="toggle-answer" data-id="${subId}">
+                      Показать ответ
+                    </button>
+                     <a href="/tasks/ask_question.html" target="_blank" class="btn task-btn">Задать вопрос по задаче</a>
+                  </div>
                   <div class="answer hidden" id="answer-${subId}">
                     <p>${st.key}</p>
                   </div>
