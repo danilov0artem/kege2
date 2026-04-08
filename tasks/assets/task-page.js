@@ -10,10 +10,10 @@
   }
 
   async function loadKompegeTask(id) {
-    const res = await fetch(`https://kompege.ru/api/v1/task/${id}`);
-    if (!res.ok) throw new Error(`Ошибка загрузки задачи ${id}`);
+    const res = await fetch(`https://api.kege2.ru/api/task/${id}`);
+    if (!res.ok) throw new Error(id);
     return await res.json();
-  }
+}
 
   async function loadLocalDict(url) {
     if (!url) return {};
@@ -36,14 +36,16 @@
   }
 
   function extractFilesFromKompege(data) {
-  const arr = Array.isArray(data?.files) ? data.files : [];
-  return arr
-    .filter(f => f && f.url)
-    .map(f => ({
-      url: new URL(f.url, "https://kompege.ru").href,
-      name: f.name || "",
-      title: f.name || "Файл"
-    }));
+    const arr = Array.isArray(data?.files) ? data.files : [];
+    return arr
+        .filter(f => f && f.url)
+        .map(f => ({
+            // Если ссылка уже начинается с http/https (наша новая ссылка), оставляем её.
+            // Иначе (на всякий случай) приклеиваем старый домен.
+            url: f.url.startsWith('http') ? f.url : new URL(f.url, 'https://kompege.ru').href,
+            name: f.name || '',
+            title: f.name || ''
+        }));
 }
 
   document.addEventListener("DOMContentLoaded", async () => {
