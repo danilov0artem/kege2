@@ -238,3 +238,67 @@ a:hover {
 .home-link{
   font-size: 20px; /* поставь 16/18/20 как нравится */
 }
+
+/* ===== layout ===== */
+
+.layout-main {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 24px;
+}
+
+/* ===== news panel ===== */
+
+.news-panel {
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.news-scroll {
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+/* ===== news item ===== */
+
+.news-item {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.news-date {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.news-text {
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+/* ===== tasks panel ===== */
+
+.tasks-panel {
+  min-width: 0;
+}
+
+/* ===== mobile ===== */
+
+@media (max-width: 900px) {
+
+  .layout-main {
+    grid-template-columns: 1fr;
+  }
+
+  .news-panel {
+    height: auto;
+  }
+
+  .news-scroll {
+    max-height: 300px;
+  }
+
+}

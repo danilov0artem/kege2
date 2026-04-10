@@ -31,9 +31,17 @@
     </div>
   </header>
 
-  <main class="container">
-    <section class="card">
-      <ul class="link-list">
+  <main class="container layout-main">
+
+  <aside class="news-panel card">
+    <h2 class="section-title" style="text-align: center;">Новости проекта</h2>
+
+    <div class="news-scroll" id="newsList">
+    </div>
+  </aside>
+
+  <section class="card tasks-panel">
+    <ul class="link-list">
         <!-- <li><a class="toc-link home-link" href="tasks/about_site.html">О сайте (рекомендую к прочтению!)</a></li> -->
         <li><a class="toc-link home-link" href="tasks/task1/task1.html">Задание 1 ⭐</a></li>
         <li><a class="toc-link home-link" href="tasks/task2/task2.html">Задание 2 ⭐</a></li>
@@ -63,7 +71,7 @@
       </ul>
     </section>
   </main>
-
+  <script src="js/news.js"></script>
   <script src="js/theme.js"></script>
 </body>
 </html>
