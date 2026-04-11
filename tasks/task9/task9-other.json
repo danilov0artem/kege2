@@ -1,0 +1,30 @@
+{
+  "v17": {
+    "text": "<img src='task9-img/v17.png'>",
+    "key": "33",
+    "files": [
+      { "title": "9var17.ods", "url": "task9-files/9var17.ods", "name": "9var17.ods" }
+    ]
+  },
+  "v18": {
+    "text": "<img src='task9-img/v18.png'>",
+    "key": "59",
+    "files": [
+      { "title": "9var18.ods", "url": "task9-files/9var18.ods", "name": "9var18.ods" }
+    ]
+  },
+  "v19": {
+    "text": "<img src='task9-img/v19.png'>",
+    "key": "2128",
+    "files": [
+      { "title": "9var19.ods", "url": "task9-files/9var19.ods", "name": "9var19.ods" }
+    ]
+  },
+  "v20": {
+    "text": "<img src='task9-img/v20.png'>",
+    "key": "2140",
+    "files": [
+      { "title": "9var20.ods", "url": "task9-files/9var20.ods", "name": "9var20.ods" }
+    ]
+  }
+}
