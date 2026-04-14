@@ -29,7 +29,7 @@
       const title = f.title || f.name || "файл";
       const href = f.url;
       const downloadAttr = f.name ? ` download="${String(f.name)}"` : " download";
-      return `<a class="file-link" href="${href}"${downloadAttr}>${title}</a>`;
+      return `<a class="file-link" href="${href}" download="${title}" target="_blank">${title}</a>`;
     }).join(", ");
 
     return `<div class="task-files-inline">Файлы к заданию: ${links}</div>`;
