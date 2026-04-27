@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>О сайте</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../assets/task-page.css">  <!-- Стили для .article-text -->
+  <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+  <!-- MathJax для формул -->
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="../../js/theme.js" defer></script>
+</head>
+<body>
+  <!-- Шапка как везде -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <a class="brand-title brand-link" href="../../index.html">КЕГЭ 2</a>
+        <div class="brand-subtitle">Сайт Учителя Артёма</div>
+      </div>
+      <nav class="social" aria-label="Ссылки на соцсети">
+        <a class="social-link" href="https://vk.com/kege2" target="_blank" rel="noopener">
+          Важные новости о ЕГЭ по информатике 2026 VK
+        </a>
+        <a class="social-link" href="https://t.me/kege_2" rel="noopener">
+          Важные новости о ЕГЭ по информатике 2026 Telegram
+        </a>
+      </nav>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Переключить тему">🌓</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h1 class="section-title">Об экзамене</h1>
+      
+      <!-- Чистый текст статьи: те же стили .task-text, но шире -->
+      <article class="task theory-block" style="margin-top: 20px;">
+        <div class="task-text article-text">
+          <ul>
+            <li>ЕГЭ по информатике с 2021 года проводится в компьютерной форме - на экзамене вы работайте на компьютере в специальной программе.
+              Можно использовать языки программирования, пакет программ LibreOffice, Paint, блокнот и другие базовые программы. О полном перечне программ
+              и их версий,
+              которые будут установлены на пк, вас должны отдельно уведомить ответственные люди (спросите у вашего учителя информатики). Но IDLE,
+              LibreOffice, Paint и блокнот будут в любом случае. Разумеется, на ЕГЭ нет доступа в интернет и никакие флешки втыкать нельзя.
+            На ЕГЭ 2026 у вас должна быть установлена операционная система Windows. Но с 2027 года стоит готовиться к Linux.</li>
+            <li>Рекомендую посмотреть это <a href="https://www.youtube.com/watch?v=bHNEbsgeqPY" target="_blank">видео</a>.</li>
+            <li>Всего в экзамене 27 заданий. За каждое верно решенное задание c 1 по 25 вы получаете 1 первичный балл. За задания 26 и 27 по 2
+              первичных балла.
+              Следовательно, всего можно набрать 29 первичных балла. Шкалу переводов баллов можно посмотреть
+              <a href="https://4ege.ru/novosti-ege/4023-shkala-perevoda-ballov-ege.html" target="_blank">здесь</a>.
+            </li>
+            <li>На ЕГЭ по информатике вы пишите только ответы - никаких решений задач писать не надо. Следовательно, нет и апелляции:
+              вы написали либо правильный ответ, либо неправильный.
+            </li>
+          <ul>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
