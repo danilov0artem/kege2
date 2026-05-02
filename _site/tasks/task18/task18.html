@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Задание 18</title>
+
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../assets/task-page.css" />
+  <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+
+  <!-- Опционально: MathJax для формул -->
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Конфиг конкретной страницы (меняешь только его на других заданиях) -->
+  <script>
+    window.TASK_PAGE_CONFIG = {
+      pageTitle: "Задание 18",
+      localTasksUrl: "task18-other.json",
+      themes: [
+        {          
+          title: "Теория",
+          tasks: [
+            { type: "theory", title: "Теория", text: `
+                <p>
+                  На данный момент здесь представлены только задачи уровня ЕГЭ. Никаких других более сложных
+                  задач на ЕГЭ никогда не было. В будущем добавлю подборку адекватных более сложных задач.
+
+                  <br><br>Обязательно решите номер с досрочной волны! Там дали достаточно сложные стенки 😰
+                  Вот хорошее видео, где показано много лайфхаков (настоятельно рекомендую к просмотру): 
+                  <a href="https://vk.com/pro100ege68?z=video-205997912_456239343%2Fa5e5461afd0793d6ec">видео VK</a>.
+                </p>
+            `}
+          ]
+        },
+        {
+          title: "1. Задачи уровня ЕГЭ",
+          tasks: [
+            { source: "kompege", id: 28763, title: "⭐ Досрочная волна 2026" },
+            { source: "kompege", id: 25357, title: "⭐ ЕГКР 19.04.25" },
+            { source: "kompege", id: 23758, title: "⭐ Демоверсия 2026" },
+          ]
+        },
+        {
+          title: "2. Дополнительные задания",
+          tasks: [
+            { source: "local", id: "статград", title: "⭐ Статград 2026" }
+          ]
+        },
+      ]
+    };
+  </script>
+
+  <!-- Общие скрипты -->
+  <script src="../../js/theme.js" defer></script>
+  <script src="../assets/task-page.js" defer></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <a class="brand-title brand-link" href="../../index.html">КЕГЭ 2</a>
+        <div class="brand-subtitle">Сайт Учителя Артема</div>
+      </div>
+
+      <nav class="social" aria-label="Ссылки на соцсети">
+        <a class="social-link" href="https://vk.com/kege2" target="_blank" rel="noopener">
+          Важные новости о ЕГЭ по информатике 2026 VK
+        </a>
+        <a class="social-link" href="https://t.me/kege_2" rel="noopener">
+          Важные новости о ЕГЭ по информатике 2026 Telegram
+        </a>
+      </nav>
+
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Переключить тему">🌓</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h1 class="section-title" id="pageTitle">Задание 18</h1>
+      
+      <h2 class="section-title" style="margin-top: 16px;">Содержание</h2>
+      <ul class="link-list toc" id="toc"></ul>
+
+      <div id="themesRoot"></div>
+    </section>
+  </main>
+</body>
+</html>

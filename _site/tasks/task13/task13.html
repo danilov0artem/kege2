@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Задание 13</title>
+
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../assets/task-page.css" />
+  <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+
+  <!-- Опционально: MathJax для формул -->
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Конфиг конкретной страницы (меняешь только его на других заданиях) -->
+  <script>
+    window.TASK_PAGE_CONFIG = {
+      pageTitle: "Задание 13",
+      localTasksUrl: "task13-other.json",
+      themes: [
+        {          
+          title: "Теория",
+          tasks: [
+            { type: "theory", title: "Теория", text: `
+                <p>
+                  С 13 заданием интересная ситуация. За все годы было представлено всего 2 прототипа. Первый - это 
+                  "Найдите наибольший IP-адрес в данной сети, который может быть назначен компьютеру". Второй: 
+                  "Сколько в этой сети IP-адресов, для которых количество единиц в их двоичной записи кратно/не кратно N?". 
+                  Официально других задач не было. Но тема с айпи-адресами обширная, и здесь можно составлять большое количество разных задач.
+
+                  <br><br>Я не стал добавлять все возможные авторские формулировки: выбрал лишь несколько наиболее интересных и, на мой
+                  взгляд, приближенных по сложности к формату ЕГЭ. В любом случае нужно прорешать и разобраться во ВСЕХ заданиях
+                  с этой страницы. Очень важно рзаобраться в принципе решений этих заданий, чтобы, если выпадет новая формулировка на экзамене,
+                  вы смогли с ней справиться. Если данных задач покажется мало - порешайте на kompege.
+
+                  <br><br>Очень важно при решении помнить о следующем: учитываем или не учитываем широковещательный адрес и адрес сети. 
+                  Помним, что эти айпи-адреса не могут быть назначены устройствам в сети. Обязательно смотрим на вопрос: спрашивают об
+                  айпи адресе/адресах в целом или о том, который/которые могут быть назначены устройствам.
+                  </p>
+            `}
+          ]
+        },
+        {
+          title: "1. Наибольший/наименьший IP-адрес в данной сети",
+          tasks: [
+            { source: "kompege", id: 23272, title: "⭐ Основная волна 11.06.25" },
+            { source: "kompege", id: 23559, title: "⭐ Пересдача 03.07.25" },
+            { source: "kompege", id: 23855, title: "" },
+            { source: "local", id: "own1", title: "⭐" },
+            { source: "local", id: "own2", title: "⭐" },
+            { source: "local", id: "статград", title: "⭐ Статград 2026" }
+          ]
+        },
+        {
+          title: "2. Количество IP-адресов простые",
+          tasks: [
+            { source: "kompege", id: 20807, title: "⭐ Апробация 05.03.25" },
+            { source: "kompege", id: 16379, title: "⭐ ЕГКР 27.04.24" },
+            { source: "kompege", id: 18928, title: "" },
+            { source: "kompege", id: 18868, title: "" },
+            { source: "local", id: "own3", title: "⭐" }
+          ]
+        },
+        {
+          title: "3. Другие задачи",
+          tasks: [
+            { source: "local", id: "2026-v14", title: "⭐ Сборник Крылова 2026 г. вариант 14" },
+            { source: "local", id: "2026-v15", title: "⭐ Сборник Крылова 2026 г. вариант 15" },
+            { source: "kompege", id: 24971, title: "⭐" },
+            { source: "kompege", id: 24552, title: "⭐" },
+            { source: "kompege", id: 23857, title: "⭐" },
+            { source: "kompege", id: 23856, title: "⭐" },
+            { source: "kompege", id: 22466, title: "⭐" },
+            { source: "kompege", id: 21978, title: "⭐" },
+            { source: "kompege", id: 21746, title: "⭐" },
+            { source: "kompege", id: 21745, title: "⭐" },
+            { source: "kompege", id: 21744, title: "⭐" },
+            { source: "kompege", id: 21742, title: "⭐" },
+            { source: "kompege", id: 21740, title: "⭐" },
+            { source: "kompege", id: 20220, title: "⭐" },
+            { source: "kompege", id: 19748, title: "⭐" },
+            { source: "kompege", id: 19598, title: "⭐" },
+            { source: "kompege", id: 18615, title: "⭐" }
+          ]
+        }
+      ]
+    };
+  </script>
+
+  <!-- Общие скрипты -->
+  <script src="../../js/theme.js" defer></script>
+  <script src="../assets/task-page.js" defer></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <a class="brand-title brand-link" href="../../index.html">КЕГЭ 2</a>
+        <div class="brand-subtitle">Сайт Учителя Артема</div>
+      </div>
+
+      <nav class="social" aria-label="Ссылки на соцсети">
+        <a class="social-link" href="https://vk.com/kege2" target="_blank" rel="noopener">
+          Важные новости о ЕГЭ по информатике 2026 VK
+        </a>
+        <a class="social-link" href="https://t.me/kege_2" rel="noopener">
+          Важные новости о ЕГЭ по информатике 2026 Telegram
+        </a>
+      </nav>
+
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Переключить тему">🌓</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h1 class="section-title" id="pageTitle">Задание 13</h1>
+      
+      <h2 class="section-title" style="margin-top: 16px;">Содержание</h2>
+      <ul class="link-list toc" id="toc"></ul>
+
+      <div id="themesRoot"></div>
+    </section>
+  </main>
+</body>
+</html>

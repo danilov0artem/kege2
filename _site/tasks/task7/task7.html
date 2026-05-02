@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Задание 7</title>
+
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../assets/task-page.css" />
+  <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+
+  <!-- Опционально: MathJax для формул -->
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Конфиг конкретной страницы (меняешь только его на других заданиях) -->
+  <script>
+    window.TASK_PAGE_CONFIG = {
+      pageTitle: "Задание 7",
+      localTasksUrl: "task7-other.json",
+      themes: [
+        {          
+          title: "Теория",
+          tasks: [
+            { type: "theory", title: "Теория", text: `
+                <p>
+                  <a href="https://vkvideo.ru/video-205865487_456239690" target="_blank">Теория по заданию</a>
+                  
+                  <br><br> 7 задание достаточно простая задачка, но есть один момент: можно придумывать бесчетное количество
+                  формулировок и вопросов,
+                  поэтому отсортировать и добавить всё разнообразие задач кажется неоправданно сложным. Поэтому я решил
+                  ограничиться только "официальными заданиями", которые были на основных волнах и подобные им (досроки,
+                  открытые варианты и прочее). И если вы действительно разберетесь с тем, как кодируруются фотографии
+                  и музыка, то без труда решите любую другую задачу. Имейте в виду, что на ЕГЭ вполне вероятно будет 
+                  какая-то новая формулировка, поэтому так важно действительно разобраться в том, как кодируется фото
+                  и музыка, а не просто заучить шаблоны. 7 задание все-таки не такое простое, как может показаться на первый взгляд
+                  именно из-за возможных появлений новых формулировок, которые заранее предугадать сложно (но можно и нужно смотреть на
+                  дальний восток!).
+
+                  <br><br>7 задание удобно решать в IDLE, используя его как калькулятор (обычные калькуляторы при больших числах
+                  могут округлять их, а Питон считает точно. Да и в целом так удобнее - видно процесс решения, можно копировать результаты).
+
+                  <br><br>Если после прорешивания всех этих задач вам захочется
+                  решить что-то еще, то welcome на kompege.ru - там огромное количество самых разных 7 заданий.
+                </p>
+            `}
+          ]
+        },
+        {
+          title: "1. Объем пакета фотографий и скорость его передачи",
+          tasks: [
+            { source: "kompege", id: 25346, title: "⭐ ЕГКР 13.12.2025" },
+            { source: "kompege", id: 15319, title: "⭐ Досрочная волна 2024" }
+          ]
+        },
+        {
+          title: "2. Экономия при передаче фотографий",
+          tasks: [
+            { source: "kompege", id: 23366, title: "⭐ Резервный день 2025" },
+            { source: "kompege", id: 23266, title: "⭐ Основная волна 2025" }
+          ]
+        },
+        {
+          title: "3. Количество снимков в пакете",
+          tasks: [
+            { source: "kompege", id: 20804, title: "⭐ Апробация 2025" },
+            { source: "kompege", id: 17861, title: "⭐ Демоверсия 2025" },
+          ]
+        },
+        {
+          title: "4. Количество цветов в палитре изображения",
+          tasks: [
+            { source: "kompege", id: 17670, title: "⭐ Пересдача 2024" },
+            { source: "kompege", id: 17626, title: "⭐ Основная волна 2024" },
+            { source: "kompege", id: 22129, title: "⭐⭐" },
+            { source: "kompege", id: 20953, title: "⭐⭐" }
+          ]
+        },
+        {
+          title: "5. Количество снимков на последней карте памяти",
+          tasks: [
+            { source: "kompege", id: 21702, title: "⭐ ЕГКР 2025" },
+            { source: "kompege", id: 19239, title: "⭐ ЕГКР 2024" }
+          ]
+        },
+        {
+          title: "6. Сжатие фотографии",
+          tasks: [
+            { type: "theory", title: "Теория", text: `
+                <p>За 100% берем то, с чем сравниваем! Оригинальный файл - это не всегда 100% (смотрите второе задание в этой
+                  подборке)</p>
+            `},
+            { source: "kompege", id: 27619, title: "⭐ Апробация 04.03.26" },
+            { source: "kompege", id: 4587, title: "⭐ Основная волна 2022" },
+            { source: "kompege", id: 6891, title: "⭐" }
+          ]
+        },
+                {
+          title: "7. Дополнительные биты",
+          tasks: [
+            { source: "kompege", id: 4667, title: "⭐ Резервный день 2022" },
+            { source: "kompege", id: 4612, title: "⭐ Основная волна 2022" },
+            { source: "kompege", id: 6742, title: "⭐ Апробация 2023" }
+          ]
+        },
+        {
+          title: "8. Время передачи музыкального фрагмента",
+          tasks: [
+            { source: "kompege", id: 8495, title: "⭐ Апробация 2023" },
+            { source: "kompege", id: 27762, title: "⭐ Апробация 04.03.26" }
+          ]
+        },
+        {
+          title: "9. Длительность музыкального фрагмента",
+          tasks: [
+            { source: "kompege", id: 9830, title: "⭐ Основная волна 2023" },
+            { source: "kompege", id: 9776, title: "⭐ Основная волна 2023" }
+          ]
+        },
+        {
+          title: "10. Время скачивания музыкального альбома",
+          tasks: [
+            { source: "kompege", id: 17979, title: "⭐ Основная волна 2024" },
+            { source: "kompege", id: 17980, title: "⭐ " }
+          ]
+        },
+        {
+          title: "11. Объем заголовка трека",
+          tasks: [
+            { source: "kompege", id: 28928, title: "⭐ ЕГКР 18.04.26" }
+          ]
+        },
+        {
+          title: "12. Повторная запись музыкального фрагмента",
+          tasks: [
+            { source: "kompege", id: 23745, title: "⭐ Демоверсия 2026" },
+            { source: "kompege", id: 6039, title: "⭐" },
+            { source: "kompege", id: 6014, title: "⭐" }
+          ]
+        }
+      ]
+      
+    };
+  </script>
+
+  <!-- Общие скрипты -->
+  <script src="../../js/theme.js" defer></script>
+  <script src="../assets/task-page.js" defer></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <a class="brand-title brand-link" href="../../index.html">КЕГЭ 2</a>
+        <div class="brand-subtitle">Сайт Учителя Артема</div>
+      </div>
+
+      <nav class="social" aria-label="Ссылки на соцсети">
+        <a class="social-link" href="https://vk.com/kege2" target="_blank" rel="noopener">
+          Важные новости о ЕГЭ по информатике 2026 VK
+        </a>
+        <a class="social-link" href="https://t.me/kege_2" rel="noopener">
+          Важные новости о ЕГЭ по информатике 2026 Telegram
+        </a>
+      </nav>
+
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Переключить тему">🌓</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h1 class="section-title" id="pageTitle">Задание 7</h1>
+      
+      <h2 class="section-title" style="margin-top: 16px;">Содержание</h2>
+      <ul class="link-list toc" id="toc"></ul>
+
+      <div id="themesRoot"></div>
+    </section>
+  </main>
+</body>
+</html>

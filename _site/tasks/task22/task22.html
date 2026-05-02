@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Задание 22</title>
+
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../assets/task-page.css" />
+  <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+
+  <!-- Опционально: MathJax для формул -->
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Конфиг конкретной страницы (меняешь только его на других заданиях) -->
+  <script>
+    window.TASK_PAGE_CONFIG = {
+      pageTitle: "Задание 22",
+      localTasksUrl: "task22-other.json",
+      themes: [
+        {          
+          title: "Теория",
+          tasks: [
+            { type: "theory", title: "Теория", text: `
+                <p>Напоминаю, что это задание решаем только в LibreOffice!
+
+                <br><br>Будьте очень внимательны с тем, нужно ли двигать процессы или нет. Если процессы нужно двигать, то их обычно не много
+                (не больше 15). Если двигать нельзя, то процессов больше (обычно 25) и при этом написано, что время окончания каждого процесса
+                минимально, или что каждый процесс начинается в самое раннее допустимое время, или что никакие задержки не допускаются.
+                Также нужно понимать, что время окончания всех процессов минимально, если каждый процесс начинается в самое раннее допустимое время.
+                Посмотрите на отличие формулировок в блоке 1, блоке 2 и блоке 3.
+
+                <br><br>Также будьте внимательны с тем, с какой милисекунды ведется отчет. Обычно нумерация милисекунд начинается с первой, поэтому
+                при расчете времени начала процесса можно прибавлять 1, но лучше всегда внимательно думать головой.
+
+                <br><br>Обязательно изучите теорию перед задачей 25359 с kompege.
+                </p>
+            `}
+          ]
+        },
+        {
+          title: "1. Задачи, где нужно передвигать процессы",
+          tasks: [
+            { source: "kompege", id: 27632, title: "⭐ Апробация 04.03.26" },
+            { source: "kompege", id: 20908, title: "⭐ Апробация 05.03.25" }
+            
+          ]
+        },
+        {
+          title: "2. Задачи, где нужно передвигать процессы, но время окончания всех процессов минимально",
+          tasks: [
+            { source: "kompege", id: 20812, title: "⭐ Апробация 05.03.25" },
+            { source: "kompege", id: 17639, title: "⭐ Основная волна 19.06.24" }
+          ]
+        },
+        {
+          title: "3. Задачи, где не нужно передвигать процессы",
+          tasks: [
+            { source: "kompege", id: 17561, title: "⭐ Основная волна 08.06.24" },
+            { type: "theory", title: "Теория", text: `
+                <p>Обязательно посмотрите проблему, которая может возникнуть при решении таких задач: 
+                  <a href="https://vk.com/video-205865487_456240524?t=1h17m20s" target="_blank">ссылка</a>.
+                  
+                  <br><br>Если коротко: формулы могут не посчитаться с первого раза и на всякий случай
+                  нужно растянуть их несколько раз.
+                  </p>
+            `},
+            { source: "kompege", id: 25359, title: "⭐ ЕГКР 13.12.25" },
+            { source: "kompege", id: 23760, title: "⭐ Демоверсия 2026" },
+            { source: "kompege", id: 23566, title: "⭐ Пересдача 03.07.25" },
+            { source: "kompege", id: 23279, title: "⭐ Основная волна 11.06.25" },
+            { source: "kompege", id: 23204, title: "⭐ Основная волна 10.06.25" },
+            { source: "kompege", id: 25209, title: "⭐" },
+            { source: "kompege", id: 27307, title: "⭐" },
+            { source: "kompege", id: 28705, title: "⭐" },
+            { source: "kompege", id: 25206, title: "⭐" },
+            { source: "kompege", id: 25205, title: "⭐" },
+            { source: "kompege", id: 25203, title: "⭐" },
+            { source: "kompege", id: 24446, title: "⭐" }
+          ]
+        },
+        {
+          title: "4. Более сложные задания",
+          tasks: [
+
+            { source: "kompege", id: 25208, title: "⭐⭐" },
+            { source: "kompege", id: 25207, title: "⭐⭐" },
+            { source: "kompege", id: 24894, title: "⭐⭐" },
+            { source: "kompege", id: 24623, title: "⭐⭐" },
+            { source: "kompege", id: 21992, title: "⭐⭐" },
+            { source: "kompege", id: 14248, title: "⭐⭐" },
+            { source: "kompege", id: 12447, title: "⭐⭐" },
+            { source: "kompege", id: 9375, title: "⭐⭐" },
+            { source: "kompege", id: 8430, title: "⭐⭐" },
+            { source: "kompege", id: 5683, title: "⭐⭐" },
+            { source: "kompege", id: 5675, title: "⭐⭐" },
+            { source: "kompege", id: 5442, title: "⭐⭐" },
+            { source: "local", id: "11", title: "⭐⭐ Задача с Яндекс ЕГЭ" }
+          ]
+        },
+      ]
+    };
+  </script>
+
+  <!-- Общие скрипты -->
+  <script src="../../js/theme.js" defer></script>
+  <script src="../assets/task-page.js" defer></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <a class="brand-title brand-link" href="../../index.html">КЕГЭ 2</a>
+        <div class="brand-subtitle">Сайт Учителя Артема</div>
+      </div>
+
+      <nav class="social" aria-label="Ссылки на соцсети">
+        <a class="social-link" href="https://vk.com/kege2" target="_blank" rel="noopener">
+          Важные новости о ЕГЭ по информатике 2026 VK
+        </a>
+        <a class="social-link" href="https://t.me/kege_2" rel="noopener">
+          Важные новости о ЕГЭ по информатике 2026 Telegram
+        </a>
+      </nav>
+
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Переключить тему">🌓</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h1 class="section-title" id="pageTitle">Задание 22</h1>
+      
+      <h2 class="section-title" style="margin-top: 16px;">Содержание</h2>
+      <ul class="link-list toc" id="toc"></ul>
+
+      <div id="themesRoot"></div>
+    </section>
+  </main>
+</body>
+</html>

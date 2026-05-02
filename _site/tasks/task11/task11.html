@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Задание 11</title>
+
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../assets/task-page.css" />
+  <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+
+  <!-- Опционально: MathJax для формул -->
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Конфиг конкретной страницы (меняешь только его на других заданиях) -->
+  <script>
+    window.TASK_PAGE_CONFIG = {
+      pageTitle: "Задание 11",
+      localTasksUrl: "task11-other.json",
+      themes: [
+        {          
+          title: "Теория",
+          tasks: [
+            { type: "theory", title: "Теория", text: `
+                <p>
+
+                  11 задание достаточно простое. Возможно, на ЕГЭ появится новая формулировка,
+                  поэтому так важно понять идею решения, чтобы суметь разобраться. Для этого обратите особое внимание на задания из блока 6:
+                  чтобы их решить, недостаточно заучить шаблонные решения, а нужно разобраться в идее задачи.
+
+                  <br><br>Правильно ставьте <= или <, >= или > в задачах, которые решаете кодом. Смотрите на формулировку вопроса!
+                </p>
+            `}
+          ]
+        },
+        {
+          title: "1. Объем памяти",
+          tasks: [
+            { source: "kompege", id: 16377, title: "⭐ ЕГКР 27.04.24" },
+            { source: "kompege", id: 29343, title: "⭐ Открытый вариант 2026" },
+            { source: "kompege", id: 21594, title: "⭐" }
+          ]
+        },
+        {
+          title: "2. Минимальная длина",
+          tasks: [
+            { source: "kompege", id: 27623, title: "⭐ Апробация 04.03.26" },
+            { source: "kompege", id: 23557, title: "⭐ Пересдача 03.07.25" }
+          ]
+        },
+        {
+          title: "3. Максимальная длина",
+          tasks: [
+            { source: "kompege", id: 17865, title: "⭐ Демоверсия 2025" },
+            { source: "kompege", id: 17524, title: "⭐ Основная волна 07.06.24" }
+          ]
+        },
+        {
+          title: "4. Минимальная мощность",
+          tasks: [
+            { source: "kompege", id: 21706, title: "⭐ ЕГКР 19.04.25" },
+            { source: "kompege", id: 23749, title: "⭐ Демоверсия 2026" }
+          ]
+        },
+        {
+          title: "5. Максимальная мощность",
+          tasks: [
+            { source: "kompege", id: 21897, title: "⭐ Открытый вариант 2025" },
+            { source: "kompege", id: 21410, title: "⭐ Досрочная волна 2025" }
+          ]
+        },
+        {
+          title: "6. Дополнительные задания",
+          tasks: [
+            { source: "kompege", id: 28698, title: "⭐⭐" },
+            { source: "kompege", id: 18614, title: "⭐⭐" },
+            { source: "kompege", id: 20972, title: "⭐⭐" },
+            { source: "kompege", id: 22068, title: "⭐⭐" },
+            { source: "kompege", id: 7261, title: "⭐⭐" },
+            { source: "kompege", id: 24456, title: "⭐⭐" },
+            { source: "kompege", id: 19155, title: "⭐⭐" },
+            { source: "kompege", id: 3152, title: "⭐⭐" }
+          ]
+        },
+      ]
+    };
+  </script>
+
+  <!-- Общие скрипты -->
+  <script src="../../js/theme.js" defer></script>
+  <script src="../assets/task-page.js" defer></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <a class="brand-title brand-link" href="../../index.html">КЕГЭ 2</a>
+        <div class="brand-subtitle">Сайт Учителя Артема</div>
+      </div>
+
+      <nav class="social" aria-label="Ссылки на соцсети">
+        <a class="social-link" href="https://vk.com/kege2" target="_blank" rel="noopener">
+          Важные новости о ЕГЭ по информатике 2026 VK
+        </a>
+        <a class="social-link" href="https://t.me/kege_2" rel="noopener">
+          Важные новости о ЕГЭ по информатике 2026 Telegram
+        </a>
+      </nav>
+
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Переключить тему">🌓</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h1 class="section-title" id="pageTitle">Задание 9</h1>
+      
+      <h2 class="section-title" style="margin-top: 16px;">Содержание</h2>
+      <ul class="link-list toc" id="toc"></ul>
+
+      <div id="themesRoot"></div>
+    </section>
+  </main>
+</body>
+</html>

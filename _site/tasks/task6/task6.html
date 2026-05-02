@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Задание 6</title>
+
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../assets/task-page.css" />
+  <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+
+  <!-- Опционально: MathJax для формул -->
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Конфиг конкретной страницы (меняешь только его на других заданиях) -->
+  <script>
+    window.TASK_PAGE_CONFIG = {
+      pageTitle: "Задание 6",
+      localTasksUrl: "task6-other.json",
+      themes: [
+        {          
+          title: "Теория",
+          tasks: [
+            { type: "theory", title: "Теория", text: `
+                <p>
+
+
+                  В 6 задании помним о следующем:
+                  <ul>
+                    <li>Внимательно смотрим на начальное положение черепахи в задаче: куда она смотрит, где находится, опущен ли хвост. Помним,
+                      что в Питоне черепаха изначально находится в начале системы координат (в точке (0, 0)), смотрит направо, хвост ее опущен.
+                    <li>Длина - это не количество точек, а количество точек минус один.
+                    <li>Количество точек - это длина плюс один.
+                    <li>Нужно обязательно уметь находить длину и количество точек из команд (по тому, сколько проходит черепаха),
+                      а не считать "пальчиком", иначе если будет задача, где длина больше 100, то как вы это будете считать руками? Например,
+                      решите задачу 23365 с kompege.ru.
+                    <li>Не забываем, что если нужно, то черепахе можно задать скорость 1 (команда speed(1)) и в "живом времени" смотреть, как она рисует
+                      (например, это полезно в 4 блоке заданий). При этом можно добавить input() после каждой операции: тогда черепаха
+                      будет ждать, пока вы не нажмете Enter. Это может быть полезно, чтобы лучше понять, как именно работает алгоритм.
+                    <li>Если при tracer(0) что-то не отрисовывается, то в конце программы можно дописать update() - это заставит
+                      "обновить" рисунок, чтобы все отображалось.
+                  </ul>
+                </p>
+            `}
+          ]
+        },
+        {
+          title: "1. Пересечение фигур",
+          tasks: [
+            { source: "kompege", id: 25345, title: "⭐ ЕГКР 13.12.2025" },
+            { source: "kompege", id: 23552, title: "⭐ Пересдача 2025" },
+            { source: "kompege", id: 17669, title: "⭐ Пересдача 2024" },
+            { source: "kompege", id: 25139, title: "⭐⭐" }
+          ]
+        },
+        {
+          title: "2. Объединение фигур",
+          tasks: [
+            { source: "kompege", id: 23365, title: "⭐ Резервный день 2025" },
+            { source: "kompege", id: 20817, title: "⭐ Апробация 2025" },
+            { source: "kompege", id: 28693, title: "⭐" },
+          ]
+        },
+        {
+          title: "3. Фигуры не прямоугольники",
+          tasks: [
+            { type: "theory", title: "Теория", text: `
+                <p>В следующих двух задачах важно придумать адекватный алгоритм
+                  подсчета точек, чтобы не считать их поштучно вручную.</p>
+            `},
+            { source: "kompege", id: 21892, title: "⭐ Открытый вариант 2025" },
+            { source: "kompege", id: 21591, title: "⭐ Статград 2025" },
+            { type: "theory", title: "Теория", text: `
+                <p>В следующей задаче нужно суметь понять, лежит точка на линии или нет.
+                  Для этого можно просто увеличивать масштаб фигуры и, например,
+                  уменить диаметр точки.</p>
+            `},
+            { source: "kompege", id: 21405, title: "⭐ Досрочная волна 2025" }
+          ]
+        },
+        {
+          title: "4. Задачи на периметр в фигурах не прямоугольниках",
+          tasks: [
+            { source: "kompege", id: 27279, title: "⭐" },
+            { source: "kompege", id: 27280, title: "⭐" }
+          ]
+        },
+        {
+          title: "5. Прочие задания",
+          tasks: [
+            { type: "theory", title: "Теория", text: `
+                <p>В этой задаче вспоминаем формулу площади параллелограмма через синус угла 🙃</p>
+            `},
+            { source: "local", id: "5576", title: "⭐ Статград 2026" }
+          ]
+        },
+        {
+          title: "6. Задачи сложнее уровня ЕГЭ",
+          tasks: [
+            { type: "theory", title: "Теория", text: `
+                <p>В задачах на подсчет количества точек с положительными/отрицательными координатами нужно
+                  быть очень внимательным в начальном положении черепахи. Черепеха в питоне изначально
+                  смотрит направо, а почти во всех задачах ее начальное положение это вдоль 
+                  положительного направления оси ординат, то есть вверх. В предыдущих задачах мы это могли не
+                  учитывать, потому что это никак не влияло на ответ. Но здесь уже так не получится. Бдите!</p>
+            `},
+            { source: "local", id: "t1", title: "⭐⭐ Задача с Яндекс Учебника" },
+            { source: "local", id: "t2", title: "⭐⭐ Задача с Яндекс Учебника" },
+            { source: "local", id: "t3", title: "⭐⭐ Задача с Яндекс Учебника" },
+            { source: "local", id: "t4", title: "⭐⭐ Задача с Яндекс Учебника" },
+            { source: "kompege", id: 6780, title: "⭐⭐" },
+            { source: "kompege", id: 24266, title: "⭐⭐" }
+          ]
+        }
+      ]
+    };
+  </script>
+
+  <!-- Общие скрипты -->
+  <script src="../../js/theme.js" defer></script>
+  <script src="../assets/task-page.js" defer></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <a class="brand-title brand-link" href="../../index.html">КЕГЭ 2</a>
+        <div class="brand-subtitle">Сайт Учителя Артема</div>
+      </div>
+
+      <nav class="social" aria-label="Ссылки на соцсети">
+        <a class="social-link" href="https://vk.com/kege2" target="_blank" rel="noopener">
+          Важные новости о ЕГЭ по информатике 2026 VK
+        </a>
+        <a class="social-link" href="https://t.me/kege_2" rel="noopener">
+          Важные новости о ЕГЭ по информатике 2026 Telegram
+        </a>
+      </nav>
+
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Переключить тему">🌓</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h1 class="section-title" id="pageTitle">Задание 6</h1>
+      
+      <h2 class="section-title" style="margin-top: 16px;">Содержание</h2>
+      <ul class="link-list toc" id="toc"></ul>
+
+      <div id="themesRoot"></div>
+    </section>
+  </main>
+</body>
+</html>

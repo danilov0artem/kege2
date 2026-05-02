@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Задание 9</title>
+
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../assets/task-page.css" />
+  <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+
+  <!-- Опционально: MathJax для формул -->
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Конфиг конкретной страницы (меняешь только его на других заданиях) -->
+  <script>
+    window.TASK_PAGE_CONFIG = {
+      pageTitle: "Задание 9",
+      localTasksUrl: "task9-other.json",
+      themes: [
+        {
+          title: "Теория",
+          tasks: [
+            { type: "theory", title: "Теория", text: `
+                <p>
+                  <a href="https://vkvideo.ru/video-205865487_456239704" target="_blank">Теория по заданию</a>
+
+                  <br><br>Составители экзамена считают, что 9 задание надо решать в таблицах. Но классический 
+                  подход заключается в том, чтобы запрограммировать это в Питончике (кроме блока 3).
+
+                  <br><br>Иногда может быть полезно отсортировать список: тогда минимальное число по индексу 0, а максимальное по последнему
+                  индексу или просто по индексу -1.
+
+                  <br><br>Здесь можно составлять большое количество самых разных формулировок, поэтому добавить всё невозможно.
+                  Если вы хорошо умеете в код, то сможете решить любую новую формулировку. Если хочется попрактиковаться,
+                  то смотрите задачи на kompege.
+
+                  <br><br>Обратите внимание на теорию перед задачей 21704 с kompege! Поймите "опасность" сортировки при проверке
+                  строки на возрастание/убывание.
+                </p>
+            `}
+          ]
+        },
+        {
+          title: "1. Классические задачи",
+          tasks: [
+            { source: "kompege", id: 25348, title: "⭐ ЕГКР 13.12.25" },
+            { source: "kompege", id: 27621, title: "⭐ Апробация 04.03.26" },
+            { source: "kompege", id: 27287, title: "⭐" },
+            { source: "kompege", id: 27285, title: "⭐" },
+            { source: "kompege", id: 23747, title: "⭐ Демоверсия 2026" },
+            { source: "kompege", id: 23555, title: "⭐ Пересдача 03.07.25" },
+            { source: "kompege", id: 23368, title: "⭐ Резервный день 19.06.25" },
+            { type: "theory", title: "Теория", text: `
+                <p> Обратите внимание на следующую задачу: здесь неправильно просто отсортировать список в порядке убывания
+                  и сравнить его с изначальным списком, потому что элементы должны идти в порядке убывания, а значит каждый
+                  следующий элемент строго меньше предыдущего. Убывание не то же самое, что невозрастание: при невозрастании
+                  допускаются несколько одинаковых чисел подряд, при убывании (или возрастании) - нет. Если вы делайте через
+                  сортировку списка, вам тогда также необходимо проверить, что все числа в строке разные.
+                </p>
+            `},
+            { source: "kompege", id: 21704, title: "⭐ ЕГКР 19.04.25" },
+            { source: "kompege", id: 28930, title: "⭐ ЕГКР 18.04.26" },
+            { source: "kompege", id: 21592, title: "⭐" },
+            { source: "kompege", id: 20899, title: "⭐ Апробация 05.03.25" },
+            { source: "kompege", id: 16375, title: "⭐ ЕГКР 27.04.24" },
+            { source: "kompege", id: 28755, title: "⭐ Досрочная волна 2026" },
+            { source: "kompege", id: 1962, title: "⭐ Демоверсия 2022" }
+          ]
+        },
+        {
+          title: "2. Задачи повышенного уровня сложности",
+          tasks: [
+            { source: "kompege", id: 27284, title: "⭐⭐" },
+            { source: "kompege", id: 10910, title: "⭐⭐" }
+          ]
+        },
+        {
+          title: "3. Задачи из сборника Крылова 💀💀💀",
+          tasks: [
+            { source: "local", id: "v17", title: "⭐⭐ Сборник Крылова 2026 г. вариант 17" },
+            { source: "local", id: "v18", title: "⭐⭐ Сборник Крылова 2026 г. вариант 18" },
+            { source: "local", id: "v19", title: "⭐⭐ Сборник Крылова 2026 г. вариант 19" },
+            { source: "local", id: "v20", title: "⭐⭐ Сборник Крылова 2026 г. вариант 20" }
+          ]
+        }
+      ]
+    };
+  </script>
+
+  <!-- Общие скрипты -->
+  <script src="../../js/theme.js" defer></script>
+  <script src="../assets/task-page.js" defer></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <a class="brand-title brand-link" href="../../index.html">КЕГЭ 2</a>
+        <div class="brand-subtitle">Сайт Учителя Артема</div>
+      </div>
+
+      <nav class="social" aria-label="Ссылки на соцсети">
+        <a class="social-link" href="https://vk.com/kege2" target="_blank" rel="noopener">
+          Важные новости о ЕГЭ по информатике 2026 VK
+        </a>
+        <a class="social-link" href="https://t.me/kege_2" rel="noopener">
+          Важные новости о ЕГЭ по информатике 2026 Telegram
+        </a>
+      </nav>
+
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Переключить тему">🌓</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h1 class="section-title" id="pageTitle">Задание 9</h1>
+      
+      <h2 class="section-title" style="margin-top: 16px;">Содержание</h2>
+      <ul class="link-list toc" id="toc"></ul>
+
+      <div id="themesRoot"></div>
+    </section>
+  </main>
+</body>
+</html>
