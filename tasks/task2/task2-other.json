@@ -4,5 +4,6 @@
   "reshu-ege": { "text": "<img src='task2-img/reshu-ege.png'>", "key": "ywzx" },
   "2026-v14": { "text": "<img src='task2-img/2026-v14.png'>", "key": "xzyw" },
   "2026-v16": { "text": "<img src='task2-img/2026-v16.png'>", "key": "ywzx" },
-  "task": { "text": "<img src='task2-img/task_yxwz.png'>", "key": "yxwz" }
+  "task": { "text": "<img src='task2-img/task_yxwz.png'>", "key": "yxwz" },
+  "xzyw": { "text": "<img src='task2-img/xzyw.png'>", "key": "xzyw" }
 }
