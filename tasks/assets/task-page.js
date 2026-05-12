@@ -145,54 +145,6 @@ THEMES.forEach((theme, i) => {
   themesRoot.appendChild(themeBlock);
 });
 
-
-
-    // // 4) Подставляем контент
-    // const allTasks = THEMES.flatMap(t => t.tasks || []).filter(t => !(t && t.type === "theory"));
-    // const promises = allTasks.map(async (t) => {
-    //   const host = document.getElementById(`task-${String(t.id)}`);
-    //   if (!host) return;
-
-    //   const headerText = host.querySelector("h3")?.textContent ?? "";
-    //   const source = t.source || "kompege";
-
-    //   try {
-    //     let data;
-
-    //     if (source === "local") {
-    //       const item = localDict[String(t.id)];
-    //       if (!item) throw new Error(`Локальная задача не найдена: ${t.id}`);
-    //       data = { text: item.text ?? "", key: item.key ?? "", files: item.files ?? [] };
-    //     } else {
-    //       data = await loadKompegeTask(t.id);
-    //       data.files = extractFilesFromKompege(data);
-    //     }
-
-
-    //     host.innerHTML = `
-    //       <h3>${headerText}</h3>
-    //       <div class="task-text">${data.text ?? ""}</div>
-    //       ${renderFiles(data.files)}
-
-    //       <button class="btn" type="button" data-action="toggle-answer" data-id="${String(t.id)}">
-    //         Показать ответ
-    //       </button>
-    //       <div class="answer hidden" id="answer-${String(t.id)}">
-    //         <p>${data.key ?? ""}</p>
-    //       </div>
-    //     `;
-
-    //     if (window.MathJax && window.MathJax.typesetPromise) {
-    //       await window.MathJax.typesetPromise([host]);
-    //     }
-    //   } catch (e) {
-    //     host.innerHTML = `
-    //       <h3>${headerText || "Задача"}</h3>
-    //       <p style="color:red;">${e.message}</p>
-    //     `;
-    //   }
-    // });
-
     // 4) Подставляем контент
     const allTasks = THEMES
       .flatMap(t => t.tasks || [])
