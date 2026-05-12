@@ -129,7 +129,8 @@ THEMES.forEach((theme, i) => {
 
     const taskEl = document.createElement("article");
     taskEl.className = "task";
-    taskEl.id = `task-${String(t.id)}`;
+    t.uniqueId = `task-${globalIndex}-${String(t.id)}`
+    taskEl.id = t.uniqueId
 
     taskEl.innerHTML = `
       <h3>${globalIndex}. ${t.title || ""}${
@@ -151,7 +152,7 @@ THEMES.forEach((theme, i) => {
       .filter(t => !(t && t.type === "theory"));
 
     const promises = allTasks.map(async (t) => {
-      const host = document.getElementById(`task-${String(t.id)}`);
+      const host = document.getElementById(t.uniqueId)
       if (!host) return;
 
       const headerText = host.querySelector("h3")?.textContent ?? "";
@@ -182,13 +183,13 @@ THEMES.forEach((theme, i) => {
           ${renderFiles(data.files)}
 
           <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <button class="btn" type="button" data-action="toggle-answer" data-id="${String(t.id)}">
+            <button class="btn" type="button" data-action="toggle-answer" data-id="${t.uniqueId}">
               Показать ответ
             </button>
              <a href="/tasks/ask_question.html" target="_blank" class="btn task-btn">Задать вопрос по задаче</a>
           </div>
 
-          <div class="answer hidden" id="answer-${String(t.id)}">
+          <div class="answer hidden" id="answer-${t.uniqueId}">
             <p>${data.key ?? ""}</p>
           </div>
         `;
@@ -199,7 +200,7 @@ THEMES.forEach((theme, i) => {
 
           data.subTask.forEach((st, idx) => {
             const subNumber = st.number ?? (19 + idx + 1);
-            const subId = `${String(t.id)}-sub-${idx + 1}`;
+            const subId = `${t.uniqueId}-sub-${idx + 1}`;
             
             // 2. Очищаем текст подзадачи
             const subTaskText = (st.text || "").replace(/<a[^>]*>|<\/a>/gi, "");
