@@ -96,7 +96,7 @@ let globalIndex = 0;
 
 THEMES.forEach((theme, i) => {
   const themeBlock = document.createElement("div");
-  themeBlock.className = "theme-block";
+  themeBlock.className = "theme-block collapsed";
 
   const anchor = document.createElement("div");
   anchor.id = themeAnchors[i];
@@ -106,7 +106,16 @@ THEMES.forEach((theme, i) => {
   const title = document.createElement("h2");
   title.className = "theme-title";
   title.textContent = theme?.title ?? `Тема ${i + 1}`;
+
+  title.addEventListener("click", () => {
+      themeBlock.classList.toggle("collapsed");
+  });
+
   themeBlock.appendChild(title);
+
+  // Контейнер для задач (для аккордеона)
+  const tasksContainer = document.createElement("div");
+  tasksContainer.className = "theme-tasks";
 
   (theme.tasks || []).forEach((t) => {
 
@@ -118,7 +127,7 @@ THEMES.forEach((theme, i) => {
         ${t.title ? `<h3>${t.title}</h3>` : ""}
         <div class="task-text">${t.text || ""}</div>
       `;
-      themeBlock.appendChild(block);
+      tasksContainer.appendChild(block);
       return;
     }
 
@@ -140,10 +149,11 @@ THEMES.forEach((theme, i) => {
       }</h3>
     `;
 
-    themeBlock.appendChild(taskEl);
+    tasksContainer.appendChild(taskEl);
   });
 
-  themesRoot.appendChild(themeBlock);
+  themeBlock.appendChild(tasksContainer);
+  themesRoot.appendChild(themeBlock);  // ← эта строка была удалена случайно!
 });
 
     // 4) Подставляем контент
