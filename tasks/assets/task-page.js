@@ -285,5 +285,29 @@ THEMES.forEach((theme, i) => {
       ans.classList.toggle("hidden");
       btn.textContent = ans.classList.contains("hidden") ? "Показать ответ" : "Скрыть ответ";
     });
+
+    // 6) Плавающая кнопка “Наверх”
+    const scrollTopBtn = document.createElement("button");
+    scrollTopBtn.type = "button";
+    scrollTopBtn.className = "scroll-top-btn";
+    scrollTopBtn.setAttribute("aria-label", "Наверх");
+    scrollTopBtn.title = "Наверх";
+    scrollTopBtn.innerHTML = `
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+        <path d="M12 5l7 7-1.4 1.4L13 8.83V19h-2V8.83l-4.6 4.57L5 12z" fill="currentColor"/>
+      </svg>
+    `;
+    document.body.appendChild(scrollTopBtn);
+
+    const toggleScrollTop = () => {
+      scrollTopBtn.classList.toggle("visible", window.scrollY > 300);
+    };
+    toggleScrollTop();
+    window.addEventListener("scroll", toggleScrollTop, { passive: true });
+
+    scrollTopBtn.addEventListener("click", () => {
+      const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: prefersReduced ? "auto" : "smooth" });
+    });
   });
 })();

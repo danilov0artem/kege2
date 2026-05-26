@@ -220,3 +220,64 @@ html { scroll-behavior: smooth; }
     max-height: 0;
     opacity: 0;
 }
+
+/* Плавающая кнопка “Наверх” в правом нижнем углу страницы */
+.scroll-top-btn {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1000;
+
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--card);
+    color: var(--text);
+    box-shadow: var(--shadow);
+    cursor: pointer;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, background 0.15s ease, visibility 0.2s ease;
+}
+
+.scroll-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-top-btn:hover {
+    background: rgba(0, 91, 211, 0.08);
+    transform: translateY(-2px);
+}
+
+.scroll-top-btn:focus-visible {
+    outline: 2px solid rgba(122, 184, 255, 0.75);
+    outline-offset: 2px;
+}
+
+.scroll-top-btn svg {
+    display: block;
+}
+
+/* На мобильных делаем компактнее, чтобы не занимать много места */
+@media (max-width: 640px) {
+    .scroll-top-btn {
+        width: 36px;
+        height: 36px;
+        right: 12px;
+        bottom: 12px;
+    }
+    .scroll-top-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+}
