@@ -26,5 +26,40 @@
     "files": [
       { "title": "9var20.ods", "url": "task9-files/9var20.ods", "name": "9var20.ods" }
     ]
+  },
+  "v7": {
+    "text": "<img src='task9-img/v7-1344.png'>",
+    "key": "1344",
+    "files": [
+      { "title": "9var07.ods", "url": "task9-files/9var07.ods", "name": "9var07.ods" }
+    ]
+  },
+  "v13": {
+    "text": "<img src='task9-img/v13-1.png'>",
+    "key": "1",
+    "files": [
+      { "title": "9var13-16.ods", "url": "task9-files/9var13-16.ods", "name": "9var13-16.ods" }
+    ]
+  },
+  "v14": {
+    "text": "<img src='task9-img/v14-2.png'>",
+    "key": "2",
+    "files": [
+      { "title": "9var13-16.ods", "url": "task9-files/9var13-16.ods", "name": "9var13-16.ods" }
+    ]
+  },
+  "v15": {
+    "text": "<img src='task9-img/v15-71.png'>",
+    "key": "71",
+    "files": [
+      { "title": "9var13-16.ods", "url": "task9-files/9var13-16.ods", "name": "9var13-16.ods" }
+    ]
+  },
+  "v16": {
+    "text": "<img src='task9-img/v16-41.png'>",
+    "key": "41",
+    "files": [
+      { "title": "9var13-16.ods", "url": "task9-files/9var13-16.ods", "name": "9var13-16.ods" }
+    ]
   }
 }

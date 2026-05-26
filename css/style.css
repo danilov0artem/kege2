@@ -320,6 +320,41 @@ a:hover {
   padding-right: 6px;
 }
 
+/* Кастомный скроллбар для области новостей (адаптируется к теме) */
+.news-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(15, 23, 42, 0.35) transparent;
+}
+
+.news-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.news-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.news-scroll::-webkit-scrollbar-thumb {
+  background: rgba(15, 23, 42, 0.35);
+  border-radius: 8px;
+}
+
+.news-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(15, 23, 42, 0.55);
+}
+
+body.dark .news-scroll {
+  scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
+}
+
+body.dark .news-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+body.dark .news-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.45);
+}
+
 /* ===== news item ===== */
 
 .news-item {

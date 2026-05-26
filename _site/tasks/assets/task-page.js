@@ -96,7 +96,7 @@ let globalIndex = 0;
 
 THEMES.forEach((theme, i) => {
   const themeBlock = document.createElement("div");
-  themeBlock.className = "theme-block";
+  themeBlock.className = "theme-block collapsed";
 
   const anchor = document.createElement("div");
   anchor.id = themeAnchors[i];
@@ -106,7 +106,36 @@ THEMES.forEach((theme, i) => {
   const title = document.createElement("h2");
   title.className = "theme-title";
   title.textContent = theme?.title ?? `Тема ${i + 1}`;
+
+  title.addEventListener("click", () => {
+      const isCollapsed = themeBlock.classList.contains("collapsed");
+      if (isCollapsed) {
+          // Раскрытие: анимируем от 0 до фактической высоты, затем снимаем ограничение,
+          // чтобы содержимое могло расти (например, при раскрытии ответов).
+          tasksContainer.style.maxHeight = "0px";
+          themeBlock.classList.remove("collapsed");
+          void tasksContainer.offsetHeight; // форсируем reflow
+          tasksContainer.style.maxHeight = tasksContainer.scrollHeight + "px";
+          const onEnd = (e) => {
+              if (e.propertyName !== "max-height") return;
+              tasksContainer.style.maxHeight = "";
+              tasksContainer.removeEventListener("transitionend", onEnd);
+          };
+          tasksContainer.addEventListener("transitionend", onEnd);
+      } else {
+          // Сворачивание: фиксируем текущую высоту, затем анимируем до 0.
+          tasksContainer.style.maxHeight = tasksContainer.scrollHeight + "px";
+          void tasksContainer.offsetHeight; // форсируем reflow
+          themeBlock.classList.add("collapsed");
+          tasksContainer.style.maxHeight = "0px";
+      }
+  });
+
   themeBlock.appendChild(title);
+
+  // Контейнер для задач (для аккордеона)
+  const tasksContainer = document.createElement("div");
+  tasksContainer.className = "theme-tasks";
 
   (theme.tasks || []).forEach((t) => {
 
@@ -118,7 +147,7 @@ THEMES.forEach((theme, i) => {
         ${t.title ? `<h3>${t.title}</h3>` : ""}
         <div class="task-text">${t.text || ""}</div>
       `;
-      themeBlock.appendChild(block);
+      tasksContainer.appendChild(block);
       return;
     }
 
@@ -129,7 +158,8 @@ THEMES.forEach((theme, i) => {
 
     const taskEl = document.createElement("article");
     taskEl.className = "task";
-    taskEl.id = `task-${String(t.id)}`;
+    t.uniqueId = `task-${globalIndex}-${String(t.id)}`
+    taskEl.id = t.uniqueId
 
     taskEl.innerHTML = `
       <h3>${globalIndex}. ${t.title || ""}${
@@ -139,59 +169,12 @@ THEMES.forEach((theme, i) => {
       }</h3>
     `;
 
-    themeBlock.appendChild(taskEl);
+    tasksContainer.appendChild(taskEl);
   });
 
-  themesRoot.appendChild(themeBlock);
+  themeBlock.appendChild(tasksContainer);
+  themesRoot.appendChild(themeBlock);  // ← эта строка была удалена случайно!
 });
-
-
-
-    // // 4) Подставляем контент
-    // const allTasks = THEMES.flatMap(t => t.tasks || []).filter(t => !(t && t.type === "theory"));
-    // const promises = allTasks.map(async (t) => {
-    //   const host = document.getElementById(`task-${String(t.id)}`);
-    //   if (!host) return;
-
-    //   const headerText = host.querySelector("h3")?.textContent ?? "";
-    //   const source = t.source || "kompege";
-
-    //   try {
-    //     let data;
-
-    //     if (source === "local") {
-    //       const item = localDict[String(t.id)];
-    //       if (!item) throw new Error(`Локальная задача не найдена: ${t.id}`);
-    //       data = { text: item.text ?? "", key: item.key ?? "", files: item.files ?? [] };
-    //     } else {
-    //       data = await loadKompegeTask(t.id);
-    //       data.files = extractFilesFromKompege(data);
-    //     }
-
-
-    //     host.innerHTML = `
-    //       <h3>${headerText}</h3>
-    //       <div class="task-text">${data.text ?? ""}</div>
-    //       ${renderFiles(data.files)}
-
-    //       <button class="btn" type="button" data-action="toggle-answer" data-id="${String(t.id)}">
-    //         Показать ответ
-    //       </button>
-    //       <div class="answer hidden" id="answer-${String(t.id)}">
-    //         <p>${data.key ?? ""}</p>
-    //       </div>
-    //     `;
-
-    //     if (window.MathJax && window.MathJax.typesetPromise) {
-    //       await window.MathJax.typesetPromise([host]);
-    //     }
-    //   } catch (e) {
-    //     host.innerHTML = `
-    //       <h3>${headerText || "Задача"}</h3>
-    //       <p style="color:red;">${e.message}</p>
-    //     `;
-    //   }
-    // });
 
     // 4) Подставляем контент
     const allTasks = THEMES
@@ -199,7 +182,7 @@ THEMES.forEach((theme, i) => {
       .filter(t => !(t && t.type === "theory"));
 
     const promises = allTasks.map(async (t) => {
-      const host = document.getElementById(`task-${String(t.id)}`);
+      const host = document.getElementById(t.uniqueId)
       if (!host) return;
 
       const headerText = host.querySelector("h3")?.textContent ?? "";
@@ -230,13 +213,13 @@ THEMES.forEach((theme, i) => {
           ${renderFiles(data.files)}
 
           <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <button class="btn" type="button" data-action="toggle-answer" data-id="${String(t.id)}">
+            <button class="btn" type="button" data-action="toggle-answer" data-id="${t.uniqueId}">
               Показать ответ
             </button>
              <a href="/tasks/ask_question.html" target="_blank" class="btn task-btn">Задать вопрос по задаче</a>
           </div>
 
-          <div class="answer hidden" id="answer-${String(t.id)}">
+          <div class="answer hidden" id="answer-${t.uniqueId}">
             <p>${data.key ?? ""}</p>
           </div>
         `;
@@ -247,7 +230,7 @@ THEMES.forEach((theme, i) => {
 
           data.subTask.forEach((st, idx) => {
             const subNumber = st.number ?? (19 + idx + 1);
-            const subId = `${String(t.id)}-sub-${idx + 1}`;
+            const subId = `${t.uniqueId}-sub-${idx + 1}`;
             
             // 2. Очищаем текст подзадачи
             const subTaskText = (st.text || "").replace(/<a[^>]*>|<\/a>/gi, "");
@@ -301,6 +284,30 @@ THEMES.forEach((theme, i) => {
 
       ans.classList.toggle("hidden");
       btn.textContent = ans.classList.contains("hidden") ? "Показать ответ" : "Скрыть ответ";
+    });
+
+    // 6) Плавающая кнопка “Наверх”
+    const scrollTopBtn = document.createElement("button");
+    scrollTopBtn.type = "button";
+    scrollTopBtn.className = "scroll-top-btn";
+    scrollTopBtn.setAttribute("aria-label", "Наверх");
+    scrollTopBtn.title = "Наверх";
+    scrollTopBtn.innerHTML = `
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+        <path d="M12 5l7 7-1.4 1.4L13 8.83V19h-2V8.83l-4.6 4.57L5 12z" fill="currentColor"/>
+      </svg>
+    `;
+    document.body.appendChild(scrollTopBtn);
+
+    const toggleScrollTop = () => {
+      scrollTopBtn.classList.toggle("visible", window.scrollY > 300);
+    };
+    toggleScrollTop();
+    window.addEventListener("scroll", toggleScrollTop, { passive: true });
+
+    scrollTopBtn.addEventListener("click", () => {
+      const prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: prefersReduced ? "auto" : "smooth" });
     });
   });
 })();
