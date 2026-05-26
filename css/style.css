@@ -247,12 +247,72 @@ a:hover {
   gap: 24px;
 }
 
+/* ===== sidebar (новости + контакты) ===== */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
 /* ===== news panel ===== */
 
 .news-panel {
   height: 70vh;
   display: flex;
   flex-direction: column;
+}
+
+/* ===== contacts panel ===== */
+
+.contacts-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.contacts-text {
+  margin: 10px 0 14px;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.contacts-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contacts-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  transition: background 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+}
+
+.contacts-link:hover {
+  background: rgba(0, 91, 211, 0.08);
+  transform: translateY(-1px);
+}
+
+.contacts-link:focus-visible {
+  outline: 2px solid rgba(122, 184, 255, 0.75);
+  outline-offset: 2px;
+}
+
+.contacts-icon {
+  flex-shrink: 0;
 }
 
 .news-scroll {
