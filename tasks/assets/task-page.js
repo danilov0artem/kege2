@@ -108,7 +108,27 @@ THEMES.forEach((theme, i) => {
   title.textContent = theme?.title ?? `Тема ${i + 1}`;
 
   title.addEventListener("click", () => {
-      themeBlock.classList.toggle("collapsed");
+      const isCollapsed = themeBlock.classList.contains("collapsed");
+      if (isCollapsed) {
+          // Раскрытие: анимируем от 0 до фактической высоты, затем снимаем ограничение,
+          // чтобы содержимое могло расти (например, при раскрытии ответов).
+          tasksContainer.style.maxHeight = "0px";
+          themeBlock.classList.remove("collapsed");
+          void tasksContainer.offsetHeight; // форсируем reflow
+          tasksContainer.style.maxHeight = tasksContainer.scrollHeight + "px";
+          const onEnd = (e) => {
+              if (e.propertyName !== "max-height") return;
+              tasksContainer.style.maxHeight = "";
+              tasksContainer.removeEventListener("transitionend", onEnd);
+          };
+          tasksContainer.addEventListener("transitionend", onEnd);
+      } else {
+          // Сворачивание: фиксируем текущую высоту, затем анимируем до 0.
+          tasksContainer.style.maxHeight = tasksContainer.scrollHeight + "px";
+          void tasksContainer.offsetHeight; // форсируем reflow
+          themeBlock.classList.add("collapsed");
+          tasksContainer.style.maxHeight = "0px";
+      }
   });
 
   themeBlock.appendChild(title);
