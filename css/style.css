@@ -351,6 +351,11 @@ a:hover {
 
   .layout-main {
     grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .sidebar {
+    gap: 10px;
   }
 
   .news-panel {
@@ -358,7 +363,11 @@ a:hover {
   }
 
   .news-scroll {
-    max-height: 175px;
+    max-height: 150px;
+  }
+
+  .card {
+    padding: 14px;
   }
 
 }
