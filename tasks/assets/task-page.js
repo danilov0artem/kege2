@@ -22,6 +22,52 @@
     return await res.json();
   }
 
+  // Есть ли у задачи осмысленное решение (а не пустая заготовка вроде <ul><li>&nbsp;</li></ul>)
+  function solutionHasContent(solveText) {
+    if (!solveText || typeof solveText !== "string") return false;
+    // Картинка-пояснение — это уже содержательное решение
+    if (/<img\b/i.test(solveText)) return true;
+    const text = solveText
+      .replace(/<[^>]*>/g, " ")
+      .replace(/&nbsp;| /gi, " ")
+      .replace(/&[a-z]+;/gi, "")
+      .trim();
+    return text.length > 0;
+  }
+
+  // Ссылка "Показать решение" + скрытый блок с самим решением (если решение есть)
+  function renderSolution(solveText, id) {
+    if (!solutionHasContent(solveText)) return "";
+    const cleaned = String(solveText).replace(/<a[^>]*>|<\/a>/gi, "");
+    return `
+      <div class="solution-wrap">
+        <button type="button" class="solution-toggle" data-action="toggle-solution" data-id="${id}">Показать решение</button>
+        <div class="task-text solution hidden" id="solution-${id}">${cleaned}</div>
+      </div>
+    `;
+  }
+
+  // Ссылка на видеоразбор задачи (как на kompege): vk / youtube / rutube.
+  // Таймкод подставляется как есть — точно так же, как это делает kompege.
+  function buildVideoUrl(videotype, video, timecode) {
+    if (!video) return "";
+    const tc = timecode || 0; // при отсутствии таймкода — 0 (как на kompege)
+    if (videotype === "yt")     return `https://youtu.be/${video}?start=${tc}`;
+    if (videotype === "vk")     return `https://vk.com/video-${video}?t=${tc}`;
+    if (videotype === "rutube") return `https://rutube.ru/video/${video}?t=${timecode || ""}`;
+    return "";
+  }
+
+  function renderVideo(videotype, video, timecode) {
+    const url = buildVideoUrl(videotype, video, timecode);
+    if (!url) return "";
+    return `
+      <div class="video-wrap">
+        <a class="video-link" href="${url}" target="_blank" rel="noopener">Видеоразбор</a>
+      </div>
+    `;
+  }
+
   function renderFiles(files) {
     if (!Array.isArray(files) || files.length === 0) return "";
 
@@ -198,7 +244,11 @@ THEMES.forEach((theme, i) => {
             text: item.text ?? "",
             key: item.key ?? "",
             files: item.files ?? [],
-            subTask: item.subTask ?? []
+            subTask: item.subTask ?? [],
+            solve_text: item.solve_text ?? "",
+            videotype: item.videotype ?? "",
+            video: item.video ?? "",
+            timecode: item.timecode ?? ""
           };
         } else {
           data = await loadKompegeTask(t.id);
@@ -221,6 +271,8 @@ THEMES.forEach((theme, i) => {
 
           <div class="answer hidden" id="answer-${t.uniqueId}">
             <p>${data.key ?? ""}</p>
+            ${renderVideo(data.videotype, data.video, data.timecode)}
+            ${renderSolution(data.solve_text, t.uniqueId)}
           </div>
         `;
 
@@ -273,17 +325,28 @@ THEMES.forEach((theme, i) => {
 
     await Promise.allSettled(promises);
 
-    // 5) Кнопки “Показать ответ”
+    // 5) Кнопки “Показать ответ” и “Показать решение”
     themesRoot.addEventListener("click", (e) => {
       const btn = e.target.closest('button[data-action="toggle-answer"]');
-      if (!btn) return;
+      if (btn) {
+        const id = btn.dataset.id;
+        const ans = document.getElementById(`answer-${id}`);
+        if (!ans) return;
 
-      const id = btn.dataset.id;
-      const ans = document.getElementById(`answer-${id}`);
-      if (!ans) return;
+        ans.classList.toggle("hidden");
+        btn.textContent = ans.classList.contains("hidden") ? "Показать ответ" : "Скрыть ответ";
+        return;
+      }
 
-      ans.classList.toggle("hidden");
-      btn.textContent = ans.classList.contains("hidden") ? "Показать ответ" : "Скрыть ответ";
+      const solBtn = e.target.closest('button[data-action="toggle-solution"]');
+      if (solBtn) {
+        const id = solBtn.dataset.id;
+        const sol = document.getElementById(`solution-${id}`);
+        if (!sol) return;
+
+        sol.classList.toggle("hidden");
+        solBtn.textContent = sol.classList.contains("hidden") ? "Показать решение" : "Скрыть решение";
+      }
     });
 
     // 6) Плавающая кнопка “Наверх”
