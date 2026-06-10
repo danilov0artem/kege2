@@ -51,11 +51,16 @@
 }
 
 .btn {
+    display: inline-block;
     border: 1px solid var(--border);
     background: var(--card);
     color: var(--text);
     padding: 8px 10px;
     border-radius: 10px;
+    font: inherit;            /* одинаковый шрифт у <button> и <a> */
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;    /* ссылка не подчёркнута, как и кнопка */
     cursor: pointer;
 }
 .btn:hover { text-decoration: underline; }
@@ -192,27 +197,8 @@ html { scroll-behavior: smooth; }
   box-shadow: none !important;
 }
 
-.task-btn {
-  display: inline-flex !important;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none !important;
-  min-height: 36px;        /* высота как у button */
-  min-width: 180px;        /* ширина для одинаковости */
-  font-size: 14px;
-  font-weight: 500;
-  transition: background 0.15s ease;
-}
-
-.task-btn:hover {
-  background: rgba(0, 91, 211, 0.08) !important;
-  text-decoration: none !important;
-}
-
-.task-btn:focus-visible {
-  outline: 2px solid rgba(122, 184, 255, 0.75);
-  outline-offset: 2px;
-}
+/* «Задать вопрос по задаче» — это ссылка <a class="btn">, она оформляется
+   тем же общим стилем .btn (выше), чтобы выглядеть один-в-один с «Показать ответ». */
 
 /* ===== Accordion for themes ===== */
 .theme-title {

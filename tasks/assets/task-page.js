@@ -266,7 +266,7 @@ THEMES.forEach((theme, i) => {
             <button class="btn" type="button" data-action="toggle-answer" data-id="${t.uniqueId}">
               Показать ответ
             </button>
-             <a href="/tasks/ask_question.html" target="_blank" class="btn task-btn">Задать вопрос по задаче</a>
+             <a href="/tasks/ask_question.html" target="_blank" class="btn">Задать вопрос по задаче</a>
           </div>
 
           <div class="answer hidden" id="answer-${t.uniqueId}">
@@ -296,7 +296,7 @@ THEMES.forEach((theme, i) => {
                     <button class="btn" type="button" data-action="toggle-answer" data-id="${subId}">
                       Показать ответ
                     </button>
-                     <a href="/tasks/ask_question.html" target="_blank" class="btn task-btn">Задать вопрос по задаче</a>
+                     <a href="/tasks/ask_question.html" target="_blank" class="btn">Задать вопрос по задаче</a>
                   </div>
                   <div class="answer hidden" id="answer-${subId}">
                     <p>${st.key}</p>
