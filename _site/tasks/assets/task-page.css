@@ -1,5 +1,39 @@
 .muted { color: var(--muted); }
 
+/* На страницах со списком задач расширяем колонку (≈1.5× шире),
+   чтобы убрать большие пустые поля по бокам и вместить больше задач.
+   :has(#themesRoot) применяет это только к страницам с задачами —
+   обычные текстовые страницы (вопрос, о сайте и т.д.) остаются узкими. */
+body:has(#themesRoot) .container {
+  max-width: 1280px;
+  margin: 0 auto;   /* убираем верхний и нижний зазор (был 18px) */
+  padding: 0;       /* убираем боковой (16px) и нижний (32px) зазоры до края экрана */
+}
+
+/* В шапке на страницах задач «КЕГЭ 2» выравниваем по левому краю задач:
+   та же ширина (1280px) и тот же боковой отступ (~1 см, 36px), что у контейнера. */
+body:has(#themesRoot) .header-inner {
+  max-width: 1280px;
+  padding-left: 36px;
+  padding-right: 36px;
+}
+
+/* Список задач — во всю ширину белой карточки: убираем боковые поля карточки.
+   Заголовок страницы, «Содержание» и оглавление возвращаем в отступы, чтобы
+   они не прилипали к краю. Вертикальные поля карточки сохраняются. */
+body:has(#themesRoot) .card {
+  padding-left: 0;
+  padding-right: 0;
+  border-radius: 0;   /* без скруглений у края экрана */
+  border-left: none;  /* боковые границы не нужны — карточка во всю ширину */
+  border-right: none;
+}
+body:has(#themesRoot) .card > .section-title,
+body:has(#themesRoot) .card > .toc {
+  padding-left: 36px;   /* на одном уровне с текстом задач и заголовками тем (~1 см) */
+  padding-right: 36px;
+}
+
 #pageTitle {
   font-size: 32px;   /* поставь нужное значение */
   line-height: 1.15; /* чтобы не выглядело “сплюснуто” */
@@ -12,15 +46,55 @@
 
 .toc li { padding: 6px 0; border: none !important; }
 
+/* Кнопка «Развернуть/Свернуть» — в правом нижнем углу «Содержания», под списком тем */
+.toc-toggle-wrap {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 36px;     /* по тому же краю, что и контент (~1 см) */
+    margin-top: 2px;
+}
+
+/* Блок «Содержание» убран со всех страниц: прячем заголовок и список тем.
+   Кнопка «Развернуть/Свернуть» идёт сразу после #toc, поэтому поднимается
+   под заголовок страницы — над списком тем (справа). */
+.section-title:has(+ #toc),
+#toc {
+    display: none;
+}
+
+.toc-toggle {
+    flex: none;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    font: inherit;
+    font-size: 14px;        /* небольшой */
+    font-weight: 400;
+    color: var(--muted);    /* серый */
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.toc-toggle:hover {
+    color: var(--text);
+    text-decoration: underline;
+}
+
+.toc-toggle:focus-visible {
+    outline: 2px solid rgba(122, 184, 255, 0.75);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
 .theme-block {
-    margin-top: 18px;
+    margin-top: 12px;
     padding-top: 6px;
 }
 
 /* Яркий заголовок темы */
 .theme-title {
-    margin: 0 0 12px;
-    padding: 12px 14px;
+    margin: 0 0 10px;
+    padding: 12px 36px;   /* выравниваем заголовок темы с текстом задач (~1 см слева/справа) */
 
     font-size: 26px;
     font-weight: 800;
@@ -28,34 +102,71 @@
 }
 
 .task {
-    margin-top: 10px;
-    padding: 14px;
+    margin-top: 8px;
+    padding: 12px;
     border: 1px solid var(--border);
     border-radius: 14px;
     background: var(--card);
     box-shadow: var(--shadow);
 }
 
-.task h3 {
-    margin: 0 0 8px;
-    font-size: 16px;
+/* === Блоки заданий — сплошной список во всю ширину карточки: без отступов
+   между ними, без боковых рамок и скруглений (боковые границы и углы рисует
+   сама карточка). Между соседними блоками — одна линия-разделитель.
+   Комбинатор ">" не трогает вложенные подзадачи. === */
+.theme-tasks > .task {
+    margin-top: 0;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    box-shadow: none;
+    padding-left: 36px;    /* ~1 см: текст не прилипает к краям (сам блок и линии — во всю ширину) */
+    padding-right: 36px;
+}
+.theme-tasks > .task + .task {
+    border-top: none;
 }
 
-.task-text { margin: 8px 0 10px; }
+.task h3 {
+    margin: 0 0 4px;
+    font-size: inherit; /* как в тексте задачи и теории (один размер) */
+    font-weight: 400;   /* не жирный */
+}
+
+.task-text { margin: 4px 0 6px; line-height: 1.4; } /* плотнее межстрочный интервал (было 1.5) */
+
+/* Текст задачи приходит из API/JSON как HTML и часто начинается с <p>
+   (у него свой отступ ~16px) — поэтому у одних задач отступ после названия
+   большой, а у других (фото/таблица/обычный текст) маленький. Убираем
+   внешние отступы у первого и последнего элемента, чтобы у ВСЕХ задач
+   расстояние после названия и перед кнопкой было одинаково маленьким. */
+.task-text > :first-child { margin-top: 0; }
+.task-text > :last-child  { margin-bottom: 0; }
 
 .task-text img{
   display: block;
-  max-width: 100%;
-  height: auto;       
+  max-width: min(100%, 700px); /* ← макс. ширина картинки; меньше число — меньше фото */
+  height: auto;
   object-fit: unset;
 }
 
+/* Фото в локальных задачах — по центру (кейге-задачи остаются слева) */
+.task-local .task-text img{
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .btn {
+    display: inline-block;
     border: 1px solid var(--border);
     background: var(--card);
     color: var(--text);
-    padding: 8px 10px;
+    padding: 4px 9px;   /* ниже кнопки: меньше вертикальный отступ (было 7px) */
     border-radius: 10px;
+    font: inherit;            /* одинаковый шрифт у <button> и <a> */
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;    /* ссылка не подчёркнута, как и кнопка */
     cursor: pointer;
 }
 .btn:hover { text-decoration: underline; }
@@ -69,10 +180,42 @@ html { scroll-behavior: smooth; }
 .anchor-offset { scroll-margin-top: 18px; }
 
 .answer {
-    margin-top: 10px;
+    margin-top: 6px;
     padding-left: 10px;      /* “несколько пробелов” */
 }
 .answer p { margin: 0; }
+
+/* Ссылки под ответом: “Видеоразбор” и “Показать решение” */
+.video-wrap,
+.solution-wrap {
+    margin-top: 8px;
+}
+
+.solution-toggle,
+.video-link {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    color: var(--link);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.solution-toggle:hover,
+.video-link:hover {
+    color: var(--link-hover);
+}
+
+.solution-toggle:focus-visible,
+.video-link:focus-visible {
+    outline: 2px solid rgba(122, 184, 255, 0.75);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
 
 .toc .toc-link{
   color: inherit;
@@ -108,8 +251,8 @@ html { scroll-behavior: smooth; }
 }
 
 .task-files{
-  margin-top: 10px;
-  margin-bottom: 34px; /* “пустая строка” перед кнопкой */
+  margin-top: 8px;
+  margin-bottom: 12px; /* небольшой отступ перед кнопкой */
   padding: 10px 12px;
   border: 1px dashed var(--border);
   border-radius: 12px;
@@ -131,15 +274,19 @@ html { scroll-behavior: smooth; }
 }
 
 .task-files-inline{
-  margin: 10px 0 18px; /* снизу отступ перед кнопкой */
+  margin: 8px 0 8px; /* снизу отступ перед кнопкой */
 }
 
 .task-files-inline strong{
   font-weight: 700;
 }
 
+/* Блок теории — мягкий синий фон, чтобы сразу выделялся среди задач */
 .theory-block {
-  border-style: dashed;
+  background: #e8f1ff;
+}
+body.dark .theory-block {
+  background: #1b2742;
 }
 
 /* Убираем отступы для подзадач 19-21 */
@@ -160,27 +307,8 @@ html { scroll-behavior: smooth; }
   box-shadow: none !important;
 }
 
-.task-btn {
-  display: inline-flex !important;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none !important;
-  min-height: 36px;        /* высота как у button */
-  min-width: 180px;        /* ширина для одинаковости */
-  font-size: 14px;
-  font-weight: 500;
-  transition: background 0.15s ease;
-}
-
-.task-btn:hover {
-  background: rgba(0, 91, 211, 0.08) !important;
-  text-decoration: none !important;
-}
-
-.task-btn:focus-visible {
-  outline: 2px solid rgba(122, 184, 255, 0.75);
-  outline-offset: 2px;
-}
+/* «Задать вопрос по задаче» — это ссылка <a class="btn">, она оформляется
+   тем же общим стилем .btn (выше), чтобы выглядеть один-в-один с «Показать ответ». */
 
 /* ===== Accordion for themes ===== */
 .theme-title {

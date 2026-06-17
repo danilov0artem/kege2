@@ -22,6 +22,52 @@
     return await res.json();
   }
 
+  // Есть ли у задачи осмысленное решение (а не пустая заготовка вроде <ul><li>&nbsp;</li></ul>)
+  function solutionHasContent(solveText) {
+    if (!solveText || typeof solveText !== "string") return false;
+    // Картинка-пояснение — это уже содержательное решение
+    if (/<img\b/i.test(solveText)) return true;
+    const text = solveText
+      .replace(/<[^>]*>/g, " ")
+      .replace(/&nbsp;| /gi, " ")
+      .replace(/&[a-z]+;/gi, "")
+      .trim();
+    return text.length > 0;
+  }
+
+  // Ссылка "Показать решение" + скрытый блок с самим решением (если решение есть)
+  function renderSolution(solveText, id) {
+    if (!solutionHasContent(solveText)) return "";
+    const cleaned = String(solveText).replace(/<a[^>]*>|<\/a>/gi, "");
+    return `
+      <div class="solution-wrap">
+        <button type="button" class="solution-toggle" data-action="toggle-solution" data-id="${id}">Показать решение</button>
+        <div class="task-text solution hidden" id="solution-${id}">${cleaned}</div>
+      </div>
+    `;
+  }
+
+  // Ссылка на видеоразбор задачи (как на kompege): vk / youtube / rutube.
+  // Таймкод подставляется как есть — точно так же, как это делает kompege.
+  function buildVideoUrl(videotype, video, timecode) {
+    if (!video) return "";
+    const tc = timecode || 0; // при отсутствии таймкода — 0 (как на kompege)
+    if (videotype === "yt")     return `https://youtu.be/${video}?start=${tc}`;
+    if (videotype === "vk")     return `https://vk.com/video-${video}?t=${tc}`;
+    if (videotype === "rutube") return `https://rutube.ru/video/${video}?t=${timecode || ""}`;
+    return "";
+  }
+
+  function renderVideo(videotype, video, timecode) {
+    const url = buildVideoUrl(videotype, video, timecode);
+    if (!url) return "";
+    return `
+      <div class="video-wrap">
+        <a class="video-link" href="${url}" target="_blank" rel="noopener">Видеоразбор</a>
+      </div>
+    `;
+  }
+
   function renderFiles(files) {
     if (!Array.isArray(files) || files.length === 0) return "";
 
@@ -90,6 +136,51 @@
       return `<li><a class="social-link toc-link" href="#${themeAnchors[i]}">${themeTitle}</a></li>`;
     }).join("");
 
+    // 2.1) Кнопка «Развернуть/Свернуть» в правом нижнем углу «Содержания»
+    //      (под списком тем) — разворачивает/сворачивает сразу все темы.
+    //      Подпись всегда отражает фактическое состояние, в т.ч. при ручном
+    //      переключении отдельных тем. syncTocToggle вызывается и из их обработчиков.
+    let syncTocToggle = () => {};
+    {
+      const toggleAll = document.createElement("button");
+      toggleAll.type = "button";
+      toggleAll.className = "toc-toggle";
+
+      // хотя бы одна тема раскрыта?
+      const anyThemeExpanded = () => {
+        const blocks = [...themesRoot.querySelectorAll(".theme-block")];
+        return blocks.some((b) => !b.classList.contains("collapsed"));
+      };
+
+      const setAllCollapsed = (collapsed) => {
+        themesRoot.querySelectorAll(".theme-block").forEach((block) => {
+          const tasks = block.querySelector(".theme-tasks");
+          block.classList.toggle("collapsed", collapsed);
+          // сбрасываем инлайн-высоту, которую мог выставить пер-темный аккордеон
+          if (tasks) tasks.style.maxHeight = "";
+        });
+      };
+
+      syncTocToggle = () => {
+        // «Свернуть», если открыта хотя бы одна тема; «Развернуть» — только когда все свёрнуты
+        const anyOpen = anyThemeExpanded();
+        toggleAll.textContent = anyOpen ? "Свернуть" : "Развернуть";
+        toggleAll.setAttribute("aria-expanded", String(anyOpen));
+      };
+
+      toggleAll.addEventListener("click", () => {
+        setAllCollapsed(anyThemeExpanded()); // открыта хотя бы одна → свернуть все; иначе → раскрыть все
+        syncTocToggle();
+      });
+
+      const toggleWrap = document.createElement("div");
+      toggleWrap.className = "toc-toggle-wrap";
+      toggleWrap.appendChild(toggleAll);
+      toc.insertAdjacentElement("afterend", toggleWrap);
+
+      syncTocToggle(); // начальная подпись
+    }
+
     // 3) Плейсхолдеры
 themesRoot.innerHTML = "";
 let globalIndex = 0;
@@ -129,6 +220,7 @@ THEMES.forEach((theme, i) => {
           themeBlock.classList.add("collapsed");
           tasksContainer.style.maxHeight = "0px";
       }
+      syncTocToggle(); // подпись кнопки всегда отражает актуальное состояние тем
   });
 
   themeBlock.appendChild(title);
@@ -144,7 +236,7 @@ THEMES.forEach((theme, i) => {
       const block = document.createElement("div");
       block.className = "task theory-block";
       block.innerHTML = `
-        ${t.title ? `<h3>${t.title}</h3>` : ""}
+        ${t.title && t.title !== "Теория" ? `<h3>${t.title}</h3>` : ""}
         <div class="task-text">${t.text || ""}</div>
       `;
       tasksContainer.appendChild(block);
@@ -157,7 +249,7 @@ THEMES.forEach((theme, i) => {
     const source = t.source || "kompege";
 
     const taskEl = document.createElement("article");
-    taskEl.className = "task";
+    taskEl.className = source === "local" ? "task task-local" : "task";
     t.uniqueId = `task-${globalIndex}-${String(t.id)}`
     taskEl.id = t.uniqueId
 
@@ -175,6 +267,8 @@ THEMES.forEach((theme, i) => {
   themeBlock.appendChild(tasksContainer);
   themesRoot.appendChild(themeBlock);  // ← эта строка была удалена случайно!
 });
+
+    syncTocToggle(); // все темы созданы (свёрнуты) — фиксируем подпись кнопки
 
     // 4) Подставляем контент
     const allTasks = THEMES
@@ -198,7 +292,11 @@ THEMES.forEach((theme, i) => {
             text: item.text ?? "",
             key: item.key ?? "",
             files: item.files ?? [],
-            subTask: item.subTask ?? []
+            subTask: item.subTask ?? [],
+            solve_text: item.solve_text ?? "",
+            videotype: item.videotype ?? "",
+            video: item.video ?? "",
+            timecode: item.timecode ?? ""
           };
         } else {
           data = await loadKompegeTask(t.id);
@@ -216,11 +314,12 @@ THEMES.forEach((theme, i) => {
             <button class="btn" type="button" data-action="toggle-answer" data-id="${t.uniqueId}">
               Показать ответ
             </button>
-             <a href="/tasks/ask_question.html" target="_blank" class="btn task-btn">Задать вопрос по задаче</a>
           </div>
 
           <div class="answer hidden" id="answer-${t.uniqueId}">
             <p>${data.key ?? ""}</p>
+            ${renderVideo(data.videotype, data.video, data.timecode)}
+            ${renderSolution(data.solve_text, t.uniqueId)}
           </div>
         `;
 
@@ -244,7 +343,6 @@ THEMES.forEach((theme, i) => {
                     <button class="btn" type="button" data-action="toggle-answer" data-id="${subId}">
                       Показать ответ
                     </button>
-                     <a href="/tasks/ask_question.html" target="_blank" class="btn task-btn">Задать вопрос по задаче</a>
                   </div>
                   <div class="answer hidden" id="answer-${subId}">
                     <p>${st.key}</p>
@@ -273,17 +371,28 @@ THEMES.forEach((theme, i) => {
 
     await Promise.allSettled(promises);
 
-    // 5) Кнопки “Показать ответ”
+    // 5) Кнопки “Показать ответ” и “Показать решение”
     themesRoot.addEventListener("click", (e) => {
       const btn = e.target.closest('button[data-action="toggle-answer"]');
-      if (!btn) return;
+      if (btn) {
+        const id = btn.dataset.id;
+        const ans = document.getElementById(`answer-${id}`);
+        if (!ans) return;
 
-      const id = btn.dataset.id;
-      const ans = document.getElementById(`answer-${id}`);
-      if (!ans) return;
+        ans.classList.toggle("hidden");
+        btn.textContent = ans.classList.contains("hidden") ? "Показать ответ" : "Скрыть ответ";
+        return;
+      }
 
-      ans.classList.toggle("hidden");
-      btn.textContent = ans.classList.contains("hidden") ? "Показать ответ" : "Скрыть ответ";
+      const solBtn = e.target.closest('button[data-action="toggle-solution"]');
+      if (solBtn) {
+        const id = solBtn.dataset.id;
+        const sol = document.getElementById(`solution-${id}`);
+        if (!sol) return;
+
+        sol.classList.toggle("hidden");
+        solBtn.textContent = sol.classList.contains("hidden") ? "Показать решение" : "Скрыть решение";
+      }
     });
 
     // 6) Плавающая кнопка “Наверх”

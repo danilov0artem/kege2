@@ -136,6 +136,51 @@
       return `<li><a class="social-link toc-link" href="#${themeAnchors[i]}">${themeTitle}</a></li>`;
     }).join("");
 
+    // 2.1) Кнопка «Развернуть/Свернуть» в правом нижнем углу «Содержания»
+    //      (под списком тем) — разворачивает/сворачивает сразу все темы.
+    //      Подпись всегда отражает фактическое состояние, в т.ч. при ручном
+    //      переключении отдельных тем. syncTocToggle вызывается и из их обработчиков.
+    let syncTocToggle = () => {};
+    {
+      const toggleAll = document.createElement("button");
+      toggleAll.type = "button";
+      toggleAll.className = "toc-toggle";
+
+      // хотя бы одна тема раскрыта?
+      const anyThemeExpanded = () => {
+        const blocks = [...themesRoot.querySelectorAll(".theme-block")];
+        return blocks.some((b) => !b.classList.contains("collapsed"));
+      };
+
+      const setAllCollapsed = (collapsed) => {
+        themesRoot.querySelectorAll(".theme-block").forEach((block) => {
+          const tasks = block.querySelector(".theme-tasks");
+          block.classList.toggle("collapsed", collapsed);
+          // сбрасываем инлайн-высоту, которую мог выставить пер-темный аккордеон
+          if (tasks) tasks.style.maxHeight = "";
+        });
+      };
+
+      syncTocToggle = () => {
+        // «Свернуть», если открыта хотя бы одна тема; «Развернуть» — только когда все свёрнуты
+        const anyOpen = anyThemeExpanded();
+        toggleAll.textContent = anyOpen ? "Свернуть" : "Развернуть";
+        toggleAll.setAttribute("aria-expanded", String(anyOpen));
+      };
+
+      toggleAll.addEventListener("click", () => {
+        setAllCollapsed(anyThemeExpanded()); // открыта хотя бы одна → свернуть все; иначе → раскрыть все
+        syncTocToggle();
+      });
+
+      const toggleWrap = document.createElement("div");
+      toggleWrap.className = "toc-toggle-wrap";
+      toggleWrap.appendChild(toggleAll);
+      toc.insertAdjacentElement("afterend", toggleWrap);
+
+      syncTocToggle(); // начальная подпись
+    }
+
     // 3) Плейсхолдеры
 themesRoot.innerHTML = "";
 let globalIndex = 0;
@@ -175,6 +220,7 @@ THEMES.forEach((theme, i) => {
           themeBlock.classList.add("collapsed");
           tasksContainer.style.maxHeight = "0px";
       }
+      syncTocToggle(); // подпись кнопки всегда отражает актуальное состояние тем
   });
 
   themeBlock.appendChild(title);
@@ -190,7 +236,7 @@ THEMES.forEach((theme, i) => {
       const block = document.createElement("div");
       block.className = "task theory-block";
       block.innerHTML = `
-        ${t.title ? `<h3>${t.title}</h3>` : ""}
+        ${t.title && t.title !== "Теория" ? `<h3>${t.title}</h3>` : ""}
         <div class="task-text">${t.text || ""}</div>
       `;
       tasksContainer.appendChild(block);
@@ -221,6 +267,8 @@ THEMES.forEach((theme, i) => {
   themeBlock.appendChild(tasksContainer);
   themesRoot.appendChild(themeBlock);  // ← эта строка была удалена случайно!
 });
+
+    syncTocToggle(); // все темы созданы (свёрнуты) — фиксируем подпись кнопки
 
     // 4) Подставляем контент
     const allTasks = THEMES
@@ -266,7 +314,6 @@ THEMES.forEach((theme, i) => {
             <button class="btn" type="button" data-action="toggle-answer" data-id="${t.uniqueId}">
               Показать ответ
             </button>
-             <a href="/tasks/ask_question.html" target="_blank" class="btn">Задать вопрос по задаче</a>
           </div>
 
           <div class="answer hidden" id="answer-${t.uniqueId}">
@@ -296,7 +343,6 @@ THEMES.forEach((theme, i) => {
                     <button class="btn" type="button" data-action="toggle-answer" data-id="${subId}">
                       Показать ответ
                     </button>
-                     <a href="/tasks/ask_question.html" target="_blank" class="btn">Задать вопрос по задаче</a>
                   </div>
                   <div class="answer hidden" id="answer-${subId}">
                     <p>${st.key}</p>
