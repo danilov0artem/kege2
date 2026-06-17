@@ -203,7 +203,7 @@ THEMES.forEach((theme, i) => {
     const source = t.source || "kompege";
 
     const taskEl = document.createElement("article");
-    taskEl.className = "task";
+    taskEl.className = source === "local" ? "task task-local" : "task";
     t.uniqueId = `task-${globalIndex}-${String(t.id)}`
     taskEl.id = t.uniqueId
 
