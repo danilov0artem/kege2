@@ -239,6 +239,44 @@ a:hover {
   font-size: 20px; /* поставь 16/18/20 как нравится */
 }
 
+/* Ненавязчивый акцент для строки о наборе на индивидуальные занятия:
+   мягкая подложка + цветная полоса слева, в тон ссылкам сайта. */
+.link-list li.lessons-cta {
+  padding: 0;
+  margin-bottom: 14px;
+  border-top: none;
+}
+
+.lessons-cta .home-link {
+  display: block;
+  padding: 12px 16px;
+  border: 1px solid rgba(11, 91, 211, 0.22);
+  border-left: 4px solid var(--link);
+  border-radius: 12px;
+  background: rgba(11, 91, 211, 0.06);
+  font-weight: 500;
+  line-height: 1.35;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.lessons-cta .home-link:hover {
+  background: rgba(11, 91, 211, 0.10);
+  border-color: rgba(11, 91, 211, 0.40);
+  transform: translateY(-1px);
+  opacity: 1;               /* не приглушаем, как обычные toc-ссылки */
+  text-decoration: none;
+}
+
+body.dark .lessons-cta .home-link {
+  background: rgba(122, 184, 255, 0.10);
+  border-color: rgba(122, 184, 255, 0.28);
+}
+
+body.dark .lessons-cta .home-link:hover {
+  background: rgba(122, 184, 255, 0.16);
+  border-color: rgba(122, 184, 255, 0.45);
+}
+
 /* ===== layout ===== */
 
 .layout-main {
