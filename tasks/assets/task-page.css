@@ -409,3 +409,28 @@ body.dark .theory-block {
         height: 16px;
     }
 }
+
+/* Мобильная версия: боковые отступы контента в два раза меньше (было 36px) */
+@media (max-width: 720px) {
+    body:has(#themesRoot) .header-inner {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+    body:has(#themesRoot) .card > .section-title,
+    body:has(#themesRoot) .card > .toc {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+    .toc-toggle-wrap {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+    .theme-title {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+    .theme-tasks > .task {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+}
