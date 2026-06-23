@@ -13,7 +13,7 @@
 }
 
 /* Тема меняет всё, кроме шапки (header) */
-body.dark {
+html.dark {
   --bg: #191A1A;
   --text: #e5e7eb;
   --muted: #cbd5e1;
@@ -27,7 +27,7 @@ body.dark {
   --shadow: 0 12px 32px rgba(0,0,0,0.35);
 }
 
-body.dark .task-text img {
+html.dark .task-text img {
   filter: invert(0.9) brightness(0.85) contrast(0.95) sepia(0.25) hue-rotate(190deg);
 }
 
@@ -276,12 +276,12 @@ a:hover {
   text-decoration: none;
 }
 
-body.dark .lessons-cta .home-link {
+html.dark .lessons-cta .home-link {
   background: rgba(122, 184, 255, 0.10);
   border-color: rgba(122, 184, 255, 0.28);
 }
 
-body.dark .lessons-cta .home-link:hover {
+html.dark .lessons-cta .home-link:hover {
   background: rgba(122, 184, 255, 0.16);
   border-color: rgba(122, 184, 255, 0.45);
 }
@@ -390,15 +390,15 @@ body.dark .lessons-cta .home-link:hover {
   background: rgba(15, 23, 42, 0.55);
 }
 
-body.dark .news-scroll {
+html.dark .news-scroll {
   scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
 }
 
-body.dark .news-scroll::-webkit-scrollbar-thumb {
+html.dark .news-scroll::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.28);
 }
 
-body.dark .news-scroll::-webkit-scrollbar-thumb:hover {
+html.dark .news-scroll::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.45);
 }
 

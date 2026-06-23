@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>{{ page.title | default: site.title }}</title>
+  {% assign desc = page.description | default: site.description %}
+  <meta name="description" content="{{ desc | strip_newlines | strip }}" />
+  <link rel="canonical" href="{{ page.url | absolute_url }}" />
+
+  <!-- Open Graph (превью при отправке ссылки в соцсетях) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="КЕГЭ 2" />
+  <meta property="og:title" content="{{ page.title | default: site.title }}" />
+  <meta property="og:description" content="{{ desc | strip_newlines | strip }}" />
+  <meta property="og:url" content="{{ page.url | absolute_url }}" />
+
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/tasks/assets/task-page.css" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+  <!-- Тема применяется до отрисовки, чтобы не было мерцания (FOUC) -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme");
+        var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (t === "dark" || (!t && prefersDark)) {
+          document.documentElement.classList.add("dark");
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- MathJax для формул -->
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"
+          integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei"
+          crossorigin="anonymous"></script>
+
+  <script src="/js/theme.js" defer></script>
+  {% if page.task_page %}<script src="/tasks/assets/task-page.js" defer></script>{% endif %}
+</head>
+
+<body>
+  {% include header.html %}
+
+  <main class="container">
+    <section class="card">
+      {% if page.title %}<h1 class="section-title"{% if page.task_page %} id="pageTitle"{% endif %}>{{ page.title }}</h1>{% endif %}
+      {% if page.task_page %}
+      <h2 class="section-title" style="margin-top: 16px;">Содержание</h2>
+      <ul class="link-list toc" id="toc"></ul>
+      <div id="themesRoot"></div>
+      {% endif %}
+      {{ content }}
+    </section>
+  </main>
+</body>
+</html>

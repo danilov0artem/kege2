@@ -285,7 +285,7 @@ html { scroll-behavior: smooth; }
 .theory-block {
   background: #e8f1ff;
 }
-body.dark .theory-block {
+html.dark .theory-block {
   background: #1b2742;
 }
 

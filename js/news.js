@@ -3,6 +3,7 @@ async function loadNews() {
 
   try {
     const res = await fetch("data/news.json");
+    if (!res.ok) throw new Error("Ошибка загрузки новостей: " + res.status);
     const news = await res.json();
 
     news.forEach(item => {

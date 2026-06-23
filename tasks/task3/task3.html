@@ -1,25 +1,10 @@
---- 
 ---
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <title>Задание 3</title>
-
-  <link rel="stylesheet" href="../../css/style.css" />
-  <link rel="stylesheet" href="../assets/task-page.css" />
-  <link rel="icon" href="../../favicon.ico" type="image/x-icon">
-
-  <!-- Опционально: MathJax для формул -->
-  <script>
-    window.MathJax = { tex: { inlineMath: [['\\(','\\)'], ['$', '$']] } };
-  </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <!-- Конфиг конкретной страницы (меняешь только его на других заданиях) -->
-  <script>
+layout: default
+title: "Задание 3"
+task_page: true
+description: "Задание 3 ЕГЭ по информатике: отобранные прототипы по теме с ответами, разбором и видеоразбором."
+---
+<script>
     window.TASK_PAGE_CONFIG = {
       pageTitle: "Задание 3",
       localTasksUrl: "task3-other.json",
@@ -106,24 +91,3 @@
       ]
     };
   </script>
-
-  <!-- Общие скрипты -->
-  <script src="../../js/theme.js" defer></script>
-  <script src="../assets/task-page.js" defer></script>
-</head>
-
-<body>
-  {% include header.html %}
-
-  <main class="container">
-    <section class="card">
-      <h1 class="section-title" id="pageTitle">Задание 3</h1>
-      
-      <h2 class="section-title" style="margin-top: 16px;">Содержание</h2>
-      <ul class="link-list toc" id="toc"></ul>
-
-      <div id="themesRoot"></div>
-    </section>
-  </main>
-</body>
-</html>

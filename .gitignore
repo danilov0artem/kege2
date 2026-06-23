@@ -3,3 +3,8 @@
 merge_files_script.py
 all_in_one.txt
 articles/
+
+# Сборка Jekyll (GitHub Pages пересобирает сайт сам — в репозитории не нужна)
+_site/
+.jekyll-cache/
+.jekyll-metadata

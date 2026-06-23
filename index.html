@@ -5,9 +5,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>КЕГЭ 2</title>
+  <title>КЕГЭ 2 — прототипы ЕГЭ по информатике по каждому заданию</title>
+  <meta name="description" content="Отсортированные прототипы ЕГЭ по информатике по каждому заданию — с разборами, ответами и видеоразборами." />
+  <link rel="canonical" href="{{ '/' | absolute_url }}" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="КЕГЭ 2" />
+  <meta property="og:title" content="КЕГЭ 2 — прототипы ЕГЭ по информатике по каждому заданию" />
+  <meta property="og:description" content="Отсортированные прототипы ЕГЭ по информатике по каждому заданию — с разборами, ответами и видеоразборами." />
+  <meta property="og:url" content="{{ '/' | absolute_url }}" />
+
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <!-- Тема применяется до отрисовки, чтобы не было мерцания (FOUC) -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme");
+        var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (t === "dark" || (!t && prefersDark)) {
+          document.documentElement.classList.add("dark");
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 
 <body>
@@ -44,7 +67,6 @@
 
   <section class="card tasks-panel">
     <ul class="link-list">
-        <!-- <li><a class="toc-link home-link" href="tasks/about_site.html">О сайте (рекомендую к прочтению!)</a></li> -->
          <li class="lessons-cta"><a class="toc-link home-link" href="tasks/lessons.html">Идет набор учеников на индивидуальные занятия на 2026-2027 учебный год!</a></li>
         <li><a class="toc-link home-link" href="tasks/about_site.html">Как самостоятельно подготовиться к ЕГЭ по информатике</a></li>
         <li><a class="toc-link home-link" href="tasks/task1/task1.html">Задание 1</a></li>

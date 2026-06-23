@@ -38,7 +38,7 @@
   // Ссылка "Показать решение" + скрытый блок с самим решением (если решение есть)
   function renderSolution(solveText, id) {
     if (!solutionHasContent(solveText)) return "";
-    const cleaned = String(solveText).replace(/<a[^>]*>|<\/a>/gi, "");
+    const cleaned = lazyImages(String(solveText).replace(/<a[^>]*>|<\/a>/gi, ""));
     return `
       <div class="solution-wrap">
         <button type="button" class="solution-toggle" data-action="toggle-solution" data-id="${id}">Показать решение</button>
@@ -68,14 +68,20 @@
     `;
   }
 
+  // Добавляем ленивую загрузку картинкам, приходящим в HTML из API/JSON.
+  function lazyImages(html) {
+    return String(html).replace(/<img\b/gi, '<img loading="lazy" decoding="async"');
+  }
+
   function renderFiles(files) {
     if (!Array.isArray(files) || files.length === 0) return "";
 
     const links = files.map(f => {
       const title = f.title || f.name || "файл";
       const href = f.url;
-      const downloadAttr = f.name ? ` download="${String(f.name)}"` : " download";
-      return `<a class="file-link" href="${href}" download="${title}" target="_blank">${title}</a>`;
+      // В атрибут download — имя файла (если есть), а не подпись ссылки.
+      const downloadName = f.name || title;
+      return `<a class="file-link" href="${href}" download="${downloadName}" target="_blank" rel="noopener">${title}</a>`;
     }).join(", ");
 
     return `<div class="task-files-inline">Файлы к заданию: ${links}</div>`;
@@ -158,6 +164,8 @@
           block.classList.toggle("collapsed", collapsed);
           // сбрасываем инлайн-высоту, которую мог выставить пер-темный аккордеон
           if (tasks) tasks.style.maxHeight = "";
+          const t = block.querySelector(".theme-title");
+          if (t) t.setAttribute("aria-expanded", String(!collapsed));
         });
       };
 
@@ -197,8 +205,13 @@ THEMES.forEach((theme, i) => {
   const title = document.createElement("h2");
   title.className = "theme-title";
   title.textContent = theme?.title ?? `Тема ${i + 1}`;
+  // Заголовок темы — это интерактивный аккордеон, поэтому делаем его
+  // доступным с клавиатуры (фокус + Enter/Space) и сообщаем состояние.
+  title.setAttribute("role", "button");
+  title.setAttribute("tabindex", "0");
+  title.setAttribute("aria-expanded", "false");
 
-  title.addEventListener("click", () => {
+  const toggleTheme = () => {
       const isCollapsed = themeBlock.classList.contains("collapsed");
       if (isCollapsed) {
           // Раскрытие: анимируем от 0 до фактической высоты, затем снимаем ограничение,
@@ -220,7 +233,16 @@ THEMES.forEach((theme, i) => {
           themeBlock.classList.add("collapsed");
           tasksContainer.style.maxHeight = "0px";
       }
+      title.setAttribute("aria-expanded", String(!themeBlock.classList.contains("collapsed")));
       syncTocToggle(); // подпись кнопки всегда отражает актуальное состояние тем
+  };
+
+  title.addEventListener("click", toggleTheme);
+  title.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+          e.preventDefault(); // Space не должен прокручивать страницу
+          toggleTheme();
+      }
   });
 
   themeBlock.appendChild(title);
@@ -237,7 +259,7 @@ THEMES.forEach((theme, i) => {
       block.className = "task theory-block";
       block.innerHTML = `
         ${t.title && t.title !== "Теория" ? `<h3>${t.title}</h3>` : ""}
-        <div class="task-text">${t.text || ""}</div>
+        <div class="task-text">${lazyImages(t.text || "")}</div>
       `;
       tasksContainer.appendChild(block);
       return;
@@ -265,7 +287,7 @@ THEMES.forEach((theme, i) => {
   });
 
   themeBlock.appendChild(tasksContainer);
-  themesRoot.appendChild(themeBlock);  // ← эта строка была удалена случайно!
+  themesRoot.appendChild(themeBlock);
 });
 
     syncTocToggle(); // все темы созданы (свёрнуты) — фиксируем подпись кнопки
@@ -302,7 +324,7 @@ THEMES.forEach((theme, i) => {
           data = await loadKompegeTask(t.id);
           data.files = extractFilesFromKompege(data);
         }
-        const taskText = (data.text || "").replace(/<a[^>]*>|<\/a>/gi, "");
+        const taskText = lazyImages((data.text || "").replace(/<a[^>]*>|<\/a>/gi, ""));
         
         // Блок основной задачи (19)
         let html = `
@@ -332,7 +354,7 @@ THEMES.forEach((theme, i) => {
             const subId = `${t.uniqueId}-sub-${idx + 1}`;
             
             // 2. Очищаем текст подзадачи
-            const subTaskText = (st.text || "").replace(/<a[^>]*>|<\/a>/gi, "");
+            const subTaskText = lazyImages((st.text || "").replace(/<a[^>]*>|<\/a>/gi, ""));
             
             html += `
               <div style="margin-top:${idx === 0 ? 0 : 14}px;">
