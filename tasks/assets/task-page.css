@@ -243,6 +243,12 @@ html { scroll-behavior: smooth; }
   -webkit-overflow-scrolling: touch;
 }
 
+/* В статьях — обычный межстрочный интервал (в теории к задачам остаётся
+   уплотнённый 1.4 из .task-text). */
+.article-text {
+  line-height: 1.5;
+}
+
 /* Таблица пусть остаётся таблицей и имеет “естественную” ширину */
 .task-text table{
   width: max-content;      /* или min-width: max-content; */
