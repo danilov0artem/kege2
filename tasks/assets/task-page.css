@@ -287,12 +287,12 @@ html { scroll-behavior: smooth; }
   font-weight: 700;
 }
 
-/* Блок теории — мягкий синий фон, чтобы сразу выделялся среди задач */
+/* Блок теории — без выделенного фона */
 .theory-block {
-  background: #e8f1ff;
+  background: transparent;
 }
 html.dark .theory-block {
-  background: #1b2742;
+  background: transparent;
 }
 
 /* Убираем отступы для подзадач 19-21 */
