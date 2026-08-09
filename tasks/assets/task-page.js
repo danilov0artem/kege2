@@ -195,7 +195,8 @@ let globalIndex = 0;
 
 THEMES.forEach((theme, i) => {
   const themeBlock = document.createElement("div");
-  themeBlock.className = "theme-block collapsed";
+  // Изначально все темы раскрыты; свернуть можно кликом по заголовку или кнопкой в «Содержании».
+  themeBlock.className = "theme-block";
 
   const anchor = document.createElement("div");
   anchor.id = themeAnchors[i];
@@ -209,7 +210,7 @@ THEMES.forEach((theme, i) => {
   // доступным с клавиатуры (фокус + Enter/Space) и сообщаем состояние.
   title.setAttribute("role", "button");
   title.setAttribute("tabindex", "0");
-  title.setAttribute("aria-expanded", "false");
+  title.setAttribute("aria-expanded", "true");
 
   const toggleTheme = () => {
       const isCollapsed = themeBlock.classList.contains("collapsed");
@@ -290,7 +291,7 @@ THEMES.forEach((theme, i) => {
   themesRoot.appendChild(themeBlock);
 });
 
-    syncTocToggle(); // все темы созданы (свёрнуты) — фиксируем подпись кнопки
+    syncTocToggle(); // все темы созданы (раскрыты) — фиксируем подпись кнопки
 
     // 4) Подставляем контент
     const allTasks = THEMES
