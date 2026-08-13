@@ -8,3 +8,7 @@ articles/
 _site/
 .jekyll-cache/
 .jekyll-metadata
+
+# Локальная заглушка для Ruby 4 (только для local serve)
+_plugins/
+serve.sh
