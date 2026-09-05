@@ -12,3 +12,6 @@ _site/
 # Локальная заглушка для Ruby 4 (только для local serve)
 _plugins/
 serve.sh
+
+# Сборки страниц: артефакт build-bundles.py, выкладывается по rsync на api.kege2.ru
+_bundles/

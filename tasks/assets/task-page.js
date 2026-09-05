@@ -15,6 +15,30 @@
     return await res.json();
 }
 
+  // Все задачи страницы одним запросом. Имя файла содержит хеш содержимого,
+  // поэтому ответ кешируется навсегда, а повторный заход не идёт на сервер.
+  // Если сборка недоступна — возвращаем пустой объект, и каждая задача
+  // догружается по отдельности, как было раньше.
+  async function loadBundle(url) {
+    if (!url) return {};
+    const key = `kege2:bundle:${url}`;
+    try {
+      const hit = sessionStorage.getItem(key);
+      if (hit) return JSON.parse(hit);
+    } catch (e) { /* приватный режим — просто идём в сеть */ }
+
+    try {
+      const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
+      if (!res.ok) throw new Error(`сборка ${res.status}`);
+      const data = await res.json();
+      try { sessionStorage.setItem(key, JSON.stringify(data)); } catch (e) { /* квота */ }
+      return data;
+    } catch (e) {
+      console.warn("Сборка страницы недоступна, гружу задачи по одной:", e.message);
+      return {};
+    }
+  }
+
   async function loadLocalDict(url) {
     if (!url) return {};
     const res = await fetch(url);
@@ -115,14 +139,16 @@
       document.title = config.pageTitle;
     }
 
-    // 0) Один раз грузим JSON со своими задачами
+    // 0) Один раз грузим JSON со своими задачами и сборку задач с kompege
     let localDict = {};
-    try {
-      localDict = await loadLocalDict(config.localTasksUrl);
-    } catch (e) {
-      console.error(e);
-      localDict = {};
-    }
+    let bundle = {};
+    const [localRes, bundleRes] = await Promise.allSettled([
+      loadLocalDict(config.localTasksUrl),
+      loadBundle(config.bundleUrl),
+    ]);
+    if (localRes.status === "fulfilled") localDict = localRes.value;
+    else console.error(localRes.reason);
+    if (bundleRes.status === "fulfilled") bundle = bundleRes.value || {};
 
     // 1) Якоря для тем
     const usedAnchors = new Set();
@@ -322,7 +348,7 @@ THEMES.forEach((theme, i) => {
             timecode: item.timecode ?? ""
           };
         } else {
-          data = await loadKompegeTask(t.id);
+          data = bundle[String(t.id)] ?? await loadKompegeTask(t.id);
           data.files = extractFilesFromKompege(data);
         }
         const taskText = lazyImages((data.text || "").replace(/<a[^>]*>|<\/a>/gi, ""));
