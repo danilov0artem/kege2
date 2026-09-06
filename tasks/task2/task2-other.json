@@ -1,9 +1,9 @@
 {
-  "2026-v1": { "text": "<img src='task2-img/2026-v1.png'>", "key": "wxzy" },
-  "2026-v11": { "text": "<img src='task2-img/2026-v11.png'>", "key": "xyzw" },
-  "reshu-ege": { "text": "<img src='task2-img/reshu-ege.png'>", "key": "ywzx" },
-  "2026-v14": { "text": "<img src='task2-img/2026-v14.png'>", "key": "xzyw" },
-  "2026-v16": { "text": "<img src='task2-img/2026-v16.png'>", "key": "ywzx" },
-  "task": { "text": "<img src='task2-img/task_yxwz.png'>", "key": "yxwz" },
-  "xzyw": { "text": "<img src='task2-img/xzyw.png'>", "key": "xzyw" }
+  "2026-v1": { "text": "<img src='task2-img/2026-v1.webp'>", "key": "wxzy" },
+  "2026-v11": { "text": "<img src='task2-img/2026-v11.webp'>", "key": "xyzw" },
+  "reshu-ege": { "text": "<img src='task2-img/reshu-ege.webp'>", "key": "ywzx" },
+  "2026-v14": { "text": "<img src='task2-img/2026-v14.webp'>", "key": "xzyw" },
+  "2026-v16": { "text": "<img src='task2-img/2026-v16.webp'>", "key": "ywzx" },
+  "task": { "text": "<img src='task2-img/task_yxwz.webp'>", "key": "yxwz" },
+  "xzyw": { "text": "<img src='task2-img/xzyw.webp'>", "key": "xzyw" }
 }

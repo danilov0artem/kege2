@@ -27,6 +27,13 @@ html.dark {
   --shadow: 0 12px 32px rgba(0,0,0,0.35);
 }
 
+/* Картинки задач приходят в своём разрешении: у задач с kompege ширина задана
+   в разметке, а у локальных нет — без этого правила они вылезают за контейнер. */
+.task-text img {
+  max-width: 100%;
+  height: auto;
+}
+
 html.dark .task-text img {
   filter: invert(0.9) brightness(0.85) contrast(0.95) sepia(0.25) hue-rotate(190deg);
 }

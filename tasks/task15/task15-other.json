@@ -1,10 +1,10 @@
 {
-  "11": { "text": "<img src='task15-img/11.png'>", "key": "11" },
-  "108": { "text": "<img src='task15-img/108.png'>", "key": "108" },
-  "v15": { "text": "<img src='task15-img/v15.png'>", "key": "24" },
-  "v1": { "text": "<img src='task15-img/v1.png'>", "key": "2809" },
-  "v2": { "text": "<img src='task15-img/v2.png'>", "key": "169" },
-  "12125": { "text": "<img src='task15-img/12125.png'>", "key": "12125" },
-  "17": { "text": "<img src='task15-img/17.png'>", "key": "17" },
-  "osn26": { "text": "<img src='task15-img/osn2026.jpg'>", "key": "448" }
+  "11": { "text": "<img src='task15-img/11.webp'>", "key": "11" },
+  "108": { "text": "<img src='task15-img/108.webp'>", "key": "108" },
+  "v15": { "text": "<img src='task15-img/v15.webp'>", "key": "24" },
+  "v1": { "text": "<img src='task15-img/v1.webp'>", "key": "2809" },
+  "v2": { "text": "<img src='task15-img/v2.webp'>", "key": "169" },
+  "12125": { "text": "<img src='task15-img/12125.webp'>", "key": "12125" },
+  "17": { "text": "<img src='task15-img/17.webp'>", "key": "17" },
+  "osn26": { "text": "<img src='task15-img/osn2026.webp'>", "key": "448" }
 }
