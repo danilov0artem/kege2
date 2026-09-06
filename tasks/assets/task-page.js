@@ -295,7 +295,7 @@ THEMES.forEach((theme, i) => {
     // 2) Обычная задача
     globalIndex++;
 
-    const source = t.source || "kompege";
+    const source = t.source || config.defaultSource || "kompege";
 
     const taskEl = document.createElement("article");
     taskEl.className = source === "local" ? "task task-local" : "task";
@@ -329,7 +329,7 @@ THEMES.forEach((theme, i) => {
       if (!host) return;
 
       const headerText = host.querySelector("h3")?.textContent ?? "";
-      const source = t.source || "kompege";
+      const source = t.source || config.defaultSource || "kompege";
 
       try {
         let data;
