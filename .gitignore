@@ -15,3 +15,9 @@ serve.sh
 
 # Сборки страниц: артефакт build-bundles.py, выкладывается по rsync на api.kege2.ru
 _bundles/
+
+# Локальная тема для serve.sh (на GitHub Pages тема подтягивается через remote_theme)
+/_layouts
+/_includes
+/assets
+_config.local.yml

@@ -1,9 +1,38 @@
 title: КЕГЭ 2
+subtitle: Полный курс подготовки к ЕГЭ по информатике
 description: >-
   Отсортированные прототипы ЕГЭ по информатике по каждому заданию —
   с разборами, ответами и видеоразборами.
 url: https://kege2.ru
 lang: ru
 
+# Общий движок (шаблоны, стили, скрипты) — репозиторий tasks-engine.
+# Изменения движка попадают сюда при следующей сборке сайта.
+remote_theme: danilov0artem/tasks-engine
+
+news_channel:
+  url: https://t.me/teacher_artem_ege
+  text: Новости о ЕГЭ по информатике и профильной математике в Telegram
+
+contacts:
+  vk: https://vk.com/d_artem
+  telegram: https://t.me/Danilov_artem_s
+
+tasks_engine:
+  api_base: https://api.kege2.ru
+  default_source: kompege
+  source_label: kompege.ru
+  files_base: https://kompege.ru
+
+exclude:
+  - CNAME
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - tools
+  - serve.sh
+  - _config.local.yml
+
 plugins:
+  - jekyll-remote-theme
   - jekyll-sitemap
